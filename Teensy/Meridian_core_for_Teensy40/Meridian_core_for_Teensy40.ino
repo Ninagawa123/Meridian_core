@@ -1,4 +1,4 @@
-//Meridian_core_for_Teensy_2021.12.14
+//Meridian_core_for_Teensy_2021.12.31
 //This code is for Teensy 4.0
 
 /*
@@ -217,10 +217,10 @@ bool monitor_src = 0; //Teensyでのシリアル表示:送信ソースデータ
 bool monitor_send = 0; //Teensyでのシリアル表示:送信データ
 bool monitor_resv = 0; //Teensyでのシリアル表示:受信データ
 bool monitor_resv_check = 1; //Teensyでのシリアル表示:受信成功の可否
-bool monitor_resv_error = 1; //Teensyでのシリアル表示:受信エラー率
+bool monitor_resv_error = 0; //Teensyでのシリアル表示:受信エラー率
 bool monitor_all_error = 0; //Teensyでのシリアル表示:全経路の受信エラー率
 bool monitor_rpy = 0; //Teensyでのシリアル表示:IMUからのrpy換算値
-bool monitor_joypad = 1; //Teensyでのシリアル表示:リモコンのデータ
+bool monitor_joypad = 0; //Teensyでのシリアル表示:リモコンのデータ
 
 void setup() {
   //-------------------------------------------------------------------------
