@@ -170,4 +170,29 @@ MeridianBoardの電源を入れると、ロボットのサーボ位置が画面�
   
   
 #  Unity版デモを実行する
-（現在、Mac版が対応しています。設定方法は後述）  
+  
+###  UnityHubに登録して起動する
+フォルダ「Unity_demo」の中のMeridian_unity_demo_mac_20211231.zipを解凍します。  
+UnityHubを開き、ProjectsのADDで解凍済みの「Meridian_unity_demo_mac_20211231」フォルダを指定します。  
+UnityHubに登録されたらプロジェクトを起動します。（Unityのバージョンは2020.3.25f1(LTS)です。） 
+  
+###  UnityのスクリプトのIPアドレスを書き換える
+画面下の「Project」→「Assets」→「Script」よりUdp_handler_sendをダブルクリックして開きます（VScodeなどが立ち上がります）  
+スクリプト9行目のconst string HOST = "192.168.1.xx"; にESP32DevKitCのIPアドレスを記入し、セーブします。
+  
+###  ESP32のIPアドレスを書き換える
+これまでの手順で設定済みの場合はそのままでOKです。
+Meridian_core_for_ESP32_PathThrough.inoの93行目にUnityを使うPCのIPアドレスを入力します。
+
+###  UnityとMeridianボードを起動する
+Unityを起動した後、Meridianボードを
+通信が成立していればロボットの関節にシンクロして画面の中のモデルが動きます。
+
+画面の「Send」にチェックを入れるとUnityからロボットを操作することができます。
+スライドバーに対応したサーボが動きます。またスライドバーの上のテキストボックスに直接数値を入力することができます。
+数値の単位はdegreeとなります。
+
+「Action」にチェックを入れるとUnityからロボットにサンプルのモーションを送信します。
+左半身の各関節角度をsinカーブで増減させます。
+このモーションはParamMaster.csの160行目-167行目で設定しているので、適宜書き換えてお試しください。
+
