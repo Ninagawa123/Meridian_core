@@ -8,6 +8,8 @@ Meridian計画はヒューマノイド制御についてのオープンソース
 全体の仕組みや概要は以下のnoteにまとめています。  
 https://note.com/ninagawa123/n/ncfde7a6fc835  
   
+またプログラムのフローについては「Meridian_system_docs」フォルダの中に資料をまとめています。
+
 Meridian_coreはMeridianの基本となる形で、動作可能なデモを公開しています。  
 デモは近藤科学のICSサーボが最低１つあれば試すことができます。  
   
