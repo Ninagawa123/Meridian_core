@@ -52,7 +52,7 @@ Teensy4.0本体とPCをUSBで接続します。
 * 「ESP32DMASPI by hideakitai」
 をそれぞれインストールします。
 
-* IcsHardSerialClass
+* 「IcsHardSerialClass」
 https://kondo-robot.com/faq/ics-library-a2 より「ICS_Library_for_Arduino_V2.1」をDLし解凍後、Teensyduinoの「スケッチ」→「ライブラリをインクルード」→「.ZIP形式のライブラリをインストール...」より、IcsClassV210.zipを選択してインストールします。
 
 #### Teensy4.0にスクリプトを書き込む
