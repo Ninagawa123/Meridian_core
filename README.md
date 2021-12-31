@@ -15,7 +15,7 @@ Meridian_coreはMeridianの基本となる形で、動作可能なデモを公�
 # System composition
   
 Meridianのハードウェアは通信用のESP32DevKitC、制御用のTeensy4.0とそれを連結する専用ボードのMeiridianBoardからなります。  
-Demoでは近藤サーボ(通信速度12.5Mbps）に対応しており、Meiridian Board Type.KはKHR-3HV用に搭載することができます。（専用ボードの回路図は公開しており、自作することも可能です。）  
+デモは近藤サーボ(通信速度12.5Mbps）に対応しており、Meiridian Board Type.KはKHR-3HV用に搭載することができます。（専用ボードの回路図は公開しており、自作することも可能です。）  
 PC側はROS1のmelodic,noeticに対応しており、現在Rvizでの表示が可能です。またUnity(Mac版）でもヒューマノイドの姿勢をリアルタイム表示することができます。  
   
   
@@ -26,7 +26,7 @@ ArduinoIDEやVScode+PlatformIOを使うことができますが、ここではAr
   
 ## ArduinoIDEのTeensy,ESP32対応
 https://qiita.com/Ninagawa_Izumi/items/a8957cc83fe4fbb75759  
-別途Qiita記事としてまとめたのでご参照ください。  
+別途Qiita記事としてまとめましたので必要な方はご覧ください。  
   
 ## Teensy4.0の準備  
   
@@ -42,13 +42,14 @@ https://github.com/Ninagawa123/Meridian_core
   
 ### Teensy4.0用のファイル設定と書き込み
 Teensy4.0本体とPCをUSBで接続します。  
-*注意点：信号線を含まない充電専用のUSBコードでは接続できません。Teensy4.0はMeridianBoardに接続したままでも大丈夫ですが、MeridianBoardの供給電源はオフにしてください。電源コネクタとなりのジャンパピンを抜くことでもTeensy,ESP32への電源供給をオフにできます。*   
+*※信号線を含まない充電専用のUSBコードでは接続できません。  
+※Teensy4.0はMeridianBoardに接続したままでも大丈夫ですが、MeridianBoardの供給電源はオフにしてください。Type.Kでは電源コネクタとなりのジャンパピンを抜くことでもTeensy,ESP32への電源供給をオフにできます。*   
 メニューから「ファイル」→「開く」を選び、「Meridian_core_for_Teensy4」の中の「Meridian_core_for_Teensy4.ino」を開きます。  
 メニューから「ツール」→「ボード」でTeensy4.0を選びます。  
   
 #### ライブラリを導入する
 メニューから「スケッチ」→「ライブラリのインクルード」→「ライブラリの管理...」を選びライブラリマネージャを開きます。  
-検索テキストボックスに「Madgwick」を入力し、 「Madgwick by Arduino」と「Adafruit AHRS by Adafruit」をインストールします。AdafruitのダイアログボックスではAHRSではInstall allを選択します。  
+検索テキストボックスに「Madgwick」を入力し、 「Madgwick by Arduino」と「Adafruit AHRS by Adafruit」をインストールします。Adafruit AHRSのダイアログボックスではではInstall allを選択します。  
 同様に、検索テキストボックスを利用し、  
 * 「MPU6050 by Electronic Cats」  
 * 「TsyDMASPI by hideakitai」  
@@ -56,7 +57,7 @@ Teensy4.0本体とPCをUSBで接続します。
 をそれぞれインストールします。  
   
 * 「IcsHardSerialClass」  
-https://kondo-robot.com/faq/ics-library-a2 より「ICS_Library_for_Arduino_V2.1」をDLし解凍後、Teensyduinoの「スケッチ」→「ライブラリをインクルード」→「.ZIP形式のライブラリをインストール...」より、IcsClassV210.zipを選択してインストールします。  
+https://kondo-robot.com/faq/ics-library-a2 より「ICS_Library_for_Arduino_V2.1」をDLし解凍後、ArduinoIDEの「スケッチ」→「ライブラリをインクルード」→「.ZIP形式のライブラリをインストール...」を選び、IcsClassV210.zipを選択してインストールします。  
   
 #### Teensy4.0にスクリプトを書き込む
 スクリプトを書き込みます。  
