@@ -9,6 +9,7 @@ Meridian計画はヒューマノイド制御についてのオープンソース
 https://note.com/ninagawa123/n/ncfde7a6fc835
 
 Meridian_coreはMeridianの基本となる形で、動作可能なデモを公開しています。
+デモは近藤科学のICSサーボが最低１つあれば試すことができます。
 
 # System composition
 
@@ -84,7 +85,7 @@ wifi接続に成功すると
 Connecting to WiFi to : (アクセスポイントSSID名) WiFi connected. WiFi connected. ESP32's IP address is : 192.168.x.xx
 と表示され、ESP32本体のIPアドレスが表示されます。この番号をメモしておきます。
 
-#  ロボットの姿勢を設定（最低ICSサーボが１個あればテストが可能です。）
+## ロボットの姿勢を設定する
 接続するサーボの通信速度設定を**1.25Mbps**に変更します。
 
 また、サーボの0度状態を下記の姿勢に、またサーボの＋回転方向も下図の矢印方向に合わせます。
@@ -92,13 +93,13 @@ Connecting to WiFi to : (アクセスポイントSSID名) WiFi connected. WiFi c
 *サーボの回転方向は、サーボの自身設定以外にも、Teensyスクリプトの261行目以降でも変更できます*
 <img width="600" alt="motorccw" src="https://user-images.githubusercontent.com/8329123/147812253-e6cbe388-f70a-445f-80c0-b4cd899aa15a.png">
 
-#  サーボのマウントを設定
+### サーボのマウントを設定
 Teensyスクリプトの261行目以降で、サーボのマウントを変更できます。
 接続しているサーボIDは1に、接続していないIDは0に設定します。
 サーボのマウント設定により、KHR-3HVのフルセットがなくてもICSサーボが最低１つあればデモをテストすることができます。
 *サーボ設定に対し１箇所でも接続されていない箇所があると動作しません。存在しないサーボからの返信を待ち続けるためです。*
 
-#  サーボの接続
+### サーボの接続
 https://github.com/Ninagawa123/Meridian_core/blob/main/Meridian_Board_TypeK_docs/Meridian_pinassign.png
 こちらのピンアサインを参考に、サーボを接続します。
 
