@@ -1,5 +1,5 @@
 # Meridian_core
-
+  
 Meridian計画はヒューマノイド制御についてのオープンソースプロジェクトです。  
 汎用で軽量な中間プロトコルを用いることにより、デバイス間で高速に状態データを共有します。  
 5~10msの更新頻度でPCのシミュレーション画面とロボット実機をリンクします。  
@@ -11,7 +11,8 @@ https://note.com/ninagawa123/n/ncfde7a6fc835
 Meridian_coreはMeridianの基本となる形で、動作可能なデモを公開しています。  
 デモは近藤科学のICSサーボが最低１つあれば試すことができます。  
   
-    
+  
+  
 # System composition
   
 Meridianのハードウェアは通信用のESP32DevKitC、制御用のTeensy4.0とそれを連結する専用ボードのMeiridianBoardからなります。  
@@ -19,10 +20,10 @@ Meridianのハードウェアは通信用のESP32DevKitC、制御用のTeensy4.0
 PC側はROS1のmelodic,noeticに対応しており、現在Rvizでの表示が可能です。またUnity(Mac版）でもヒューマノイドの姿勢をリアルタイム表示することができます。  
   
   
+  
 # Installation
 Teensy4.0、ESP32DevKitCそれぞれのファイルを設定し書き込みます。  
 ArduinoIDEやVScode+PlatformIOを使うことができますが、ここではArduinoIDEでの導入について説明します。  
-  
   
 ## ArduinoIDEのTeensy,ESP32対応
 https://qiita.com/Ninagawa_Izumi/items/a8957cc83fe4fbb75759  
@@ -109,7 +110,8 @@ https://github.com/Ninagawa123/Meridian_core/blob/main/Meridian_Board_TypeK_docs
 こちらのピンアサインを参考に、サーボを接続します。  
   
   
-#  ROS版デモを実行する
+  
+# ROS版デモを実行する
   
 ## ROS noeticの導入
 お手持ちの環境にROSを導入してください。  
@@ -164,6 +166,8 @@ $ roslaunch roid1_urdf display_meridian_demo.launch
 $ rosrun meridian_demo rosnode_meridim_demo.py  
   
 MeridianBoardの電源を入れると、ロボットのサーボ位置が画面の表示に反映されます。  
+  
+  
   
 #  Unity版デモを実行する
 （現在、Mac版が対応しています。設定方法は後述）  
