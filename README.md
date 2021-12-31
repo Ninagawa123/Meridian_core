@@ -66,24 +66,24 @@ https://kondo-robot.com/faq/ics-library-a2 より「ICS_Library_for_Arduino_V2.1
 PCにESP32DevKitCをUSBで接続し、  
 メニューから「ファイル」→「開く」で「Meridian_core_for_ESP32_PathThrough」の中の「Meridian_core_for_ESP32_PathThrough.ino」を選びます。  
   
-#### wifiを設定する
+### wifiを設定する
 91行目-93行目について、接続したいwifiのアクセスポイントのSSIDとパスワードを入力します。  
 *アクセスポイントは5GHzではなく**2.4GHz**に対応している必要があります。*  
 また、接続先のPCのIPアドレスも記入します。  
   
-##### 接続先のPCのIPアドレスの調べ方
+### 接続先のPCのIPアドレスの調べ方
 windowsのコマンドプロンプトを開き、  
 $ ipconfig  
 と入力しコマンド実行します。  
 IPv4アドレスが表示されます（192.168.1.xxなど)  
 *Macの場合は画面右上のwifiマークから”ネットワーク”環境設定...で表示されます。*  
   
-#### ESP32にスクリプトを書き込む
+### ESP32にスクリプトを書き込む
 PCとESP32DecKitCをUSBで接続し、  
 メニューから「ツール」→「ボード」→「ESP32 Arduino」→「ESP32 Dev Module」を選びます。  
 また、「ツール」→「シリアルポート」→で該当のシリアルポートを選びます。  
   
-##### ESP32のIPアドレスを調べる
+### ESP32のIPアドレスを調べる
 ArduinoIDEのシリアルモニタを開き、bpsを200000に設定します。 ESP32DevKitC本体のENボタンを押します。  
 wifi接続に成功すると  
 Connecting to WiFi to : (アクセスポイントSSID名) WiFi connected. WiFi connected. ESP32's IP address is : 192.168.x.xx  
@@ -152,7 +152,7 @@ $ cd ~/catkin_ws/ source devel/setup.bash
 $ catkin build  
 $ source ~/catkin_ws/devel/setup.bash  
   
-### ROS,rviz,meridian_demo実行する
+## ROS,rviz,meridian_demo実行する
 １つ目のターミナルを開き、  
 $ roscore  
   
