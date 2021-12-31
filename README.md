@@ -91,6 +91,7 @@ Connecting to WiFi to : (アクセスポイントSSID名) WiFi connected. WiFi c
 また、サーボの0度状態を下記の姿勢に、またサーボの＋回転方向も下図の矢印方向に合わせます。
 *左半身および体の中心は下図に順次つつ、右半身については左半身のミラー方向に回転に合わせます。*
 *サーボの回転方向は、サーボの自身設定以外にも、Teensyスクリプトの261行目以降でも変更できます*
+
 <img width="600" alt="motorccw" src="https://user-images.githubusercontent.com/8329123/147812253-e6cbe388-f70a-445f-80c0-b4cd899aa15a.png">
 
 ### サーボのマウントを設定
