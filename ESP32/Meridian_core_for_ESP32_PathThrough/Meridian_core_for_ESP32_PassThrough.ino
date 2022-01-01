@@ -1,4 +1,4 @@
-//Meridian_core_for_ESP32_PathThrough_2021.12.31
+//Meridian_core_for_ESP32_PassThrough_2021.12.31
 //for ESP32_DevKitC(Espressif)
 
 /*
