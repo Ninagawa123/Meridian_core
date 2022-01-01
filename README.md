@@ -40,7 +40,7 @@ ArduinoIDEを起動し、メニューから「ファイル」→「名前をつ�
 https://github.com/Ninagawa123/Meridian_core  
 より、緑色のボタン「code」を押してDownload zipを選びます。  
 ファイルを解凍後、以下の２つのファイルを先に確認したArduinoのスクリプトが入っているフォルダにコピーします。  
-* 「ESP32」の中の「Meridian_core_for_ESP32_PathThrough」フォルダ  
+* 「ESP32」の中の「Meridian_core_for_ESP32_PassThrough」フォルダ  
 * 「Teensy」の中の「Meridian_core_for_Teensy40」フォルダ  
   
 ### Teensy4.0用のファイル設定と書き込み
@@ -67,7 +67,7 @@ https://kondo-robot.com/faq/ics-library-a2 より「ICS_Library_for_Arduino_V2.1
   
 ## ESP32の準備
 PCにESP32DevKitCをUSBで接続し、  
-メニューから「ファイル」→「開く」で「Meridian_core_for_ESP32_PathThrough」の中の「Meridian_core_for_ESP32_PathThrough.ino」を選びます。  
+メニューから「ファイル」→「開く」で「Meridian_core_for_ESP32_PassThrough」の中の「Meridian_core_for_ESP32_PassThrough.ino」を選びます。  
   
 ### wifiを設定する
 91行目-93行目について、接続したいwifiのアクセスポイントのSSIDとパスワードを入力します。  
