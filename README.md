@@ -140,7 +140,7 @@ PCやラズパイにもどり、ターミナルで作業します。
   
 ### ROSパッケージを作成する
 $ cd ~/catkin_ws/src  
-$ catkin create pkg meridian_demo -catkin-deps roscpp rospy std_msgs  
+$ catkin create pkg meridian_demo --catkin-deps roscpp rospy std_msgs  
   
 ### ROSパッケージにデモのコードを含める
 $ cd meridian_demo/src  
