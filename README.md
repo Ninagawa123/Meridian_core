@@ -172,7 +172,7 @@ MeridianBoardの電源を入れると、ロボットのサーボ位置が画面�
   
   
   
-#  Unity版デモを実行する
+#  Unity版デモを実行する（※Macのみ動作します。Winでは現状エラーが発生します。）
   
 ###  UnityHubに登録して起動する
 フォルダ「Unity_demo」の中のMeridian_unity_demo_mac_20211231.zipを解凍します。  
