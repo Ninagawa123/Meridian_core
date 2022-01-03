@@ -176,8 +176,7 @@ MeridianBoardの電源を入れると、ロボットのサーボ位置が画面�
 Error: package ’meridian demo’ not found となる  
 *→ パッケージができていないか、パスが通っていません。「パッケージをビルドする」の4行を実行してみてください。*  
 Error: Cannot assign requested address となる  
-*→ たぶんアドレス番号が「192.168.x.xx」などのまま書き変わっていません。「ESP32のIPアドレスを調べる  
-」「PCやラズパイ自身のIPアドレスを調べる」の項目を参考に、rosnode_meridim_demo.pyのアドレスを更新してください。*  
+*→ たぶんアドレス番号が「192.168.x.xx」などのまま書き変わっていません。「ESP32のIPアドレスを調べる」「PCやラズパイ自身のIPアドレスを調べる」の項目を参考に、rosnode_meridim_demo.pyのアドレスを更新してください。*  
   
   
 #  Unity版デモを実行する（※Macのみ動作します。Winでは現状エラーが発生します。）
