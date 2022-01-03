@@ -147,12 +147,13 @@ $ cd meridian_demo/src
 $ wget https://raw.githubusercontent.com/Ninagawa123/Meridian_core/main/ROS_demo/rosnode_meridim_demo.py  
   
 ### 受信ポートと送信ポートの番号をかきかえ、実行可能にする
-nano rosnode_meridim_demo.py （もしくはcode,vimなどを実行）  
+$ nano rosnode_meridim_demo.py （もしくはcode,vimなどを実行）  
 エディタでファイルを開き、15行目,18行目のIPアドレスをそれぞれ現在の環境のものに書き換えます。  
 $ chmod 755 rosnode_meridim_demo.py  
   
 ### パッケージをビルドする
-$ cd ~/catkin_ws/ source devel/setup.bash  
+$ cd ~/catkin_ws/  
+$ source devel/setup.bash  
 $ catkin build  
 $ source ~/catkin_ws/devel/setup.bash  
   
