@@ -87,7 +87,7 @@ PCとESP32DecKitCをUSBで接続し、
 また、「ツール」→「シリアルポート」→で該当のシリアルポートを選びます。  
   
 ### ESP32のIPアドレスを調べる
-ArduinoIDEのシリアルモニタを開き、bpsを200000に設定します。 ESP32DevKitC本体のENボタンを押します。  
+ArduinoIDEのシリアルモニタを開き、bpsを2000000に設定します。 ESP32DevKitC本体のENボタンを押します。  
 wifi接続に成功すると  
 Connecting to WiFi to : (アクセスポイントSSID名) WiFi connected. WiFi connected. ESP32's IP address is : 192.168.x.xx  
 と表示され、ESP32本体のIPアドレスが表示されます。この番号をメモしておきます。  
@@ -126,7 +126,7 @@ https://github.com/Ninagawa123/roid1_urdf
   
 ## PCやラズパイ自身のIPアドレスを調べる
 ターミナルで「ip a」を入力し、PCやラズパイ等のIPアドレスを調べます。  
-wlan0以下の192.168..1.xxの番号を調べてメモします。  
+wlan0以下の192.168.1.xxの番号を調べてメモします。  
 *PCやラズパイはアクセスポイントに無線/有線LANで接続されている必要があります*  
 *Macの場合は画面右上のwifiマークから”ネットワーク”環境設定...で表示されます。*  
   
