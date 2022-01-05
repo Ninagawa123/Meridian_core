@@ -31,6 +31,7 @@ global i
 
 while not rospy.is_shutdown():
     with closing(sock):
+        print("Waitind for UDP signal from", UDP_SEND_IP, "...") #起動メッセージ
         while True:
             loop_count += 1
             r_bin_data,addr = sock.recvfrom(1472)
