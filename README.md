@@ -76,7 +76,7 @@ PCにESP32DevKitCをUSBで接続し、
   
 ### 接続先のPCのIPアドレスの調べ方
 windowsのコマンドプロンプトを開き、  
-$ ipconfig  
+$ ipconfig （Ubuntuの場合は$ ip a もしくは $ ifconfig）  
 と入力しコマンド実行します。  
 IPv4アドレスが表示されます（192.168.1.xxなど)  
 *Macの場合は画面右上のwifiマークから”ネットワーク”環境設定...で表示されます。*  
