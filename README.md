@@ -158,7 +158,7 @@ $ source devel/setup.bash
 $ catkin build  
 $ source ~/catkin_ws/devel/setup.bash  
 
-### パスを通しておく  
+### パスを登録しておく（次回起動時にもroslaunchが使えるようになる）  
 $ echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc  
 
 ## ROS,rviz,meridian_demo実行する
