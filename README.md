@@ -57,7 +57,7 @@ Teensy4.0本体とPCをUSBで接続します。
 * 「MPU6050 by Electronic Cats」  
 * 「TsyDMASPI by hideakitai」  
 * 「ESP32DMASPI by hideakitai」  
-をそれぞれインストールします。
+をそれぞれインストールします。  
 *※MPU6050はGY-521(アマゾン等で出回っている青い基板のもの)のI2Cを想定しています。スイッチサイエンス等の赤い基板のものは、販売サイトの利用法をご参照ください。*
   
 * 「IcsHardSerialClass」  
