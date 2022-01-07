@@ -57,7 +57,8 @@ Teensy4.0本体とPCをUSBで接続します。
 * 「MPU6050 by Electronic Cats」  
 * 「TsyDMASPI by hideakitai」  
 * 「ESP32DMASPI by hideakitai」  
-をそれぞれインストールします。  
+をそれぞれインストールします。
+*※MPU6050はGY-521(アマゾン等で出回っている青い基板のもの)のI2Cを想定しています。スイッチサイエンス等の赤い基板のものは、販売サイトの利用法をご参照ください。*
   
 * 「IcsHardSerialClass」  
 https://kondo-robot.com/faq/ics-library-a2 より「ICS_Library_for_Arduino_V2.1」をDLし解凍後、ArduinoIDEの「スケッチ」→「ライブラリをインクルード」→「.ZIP形式のライブラリをインストール...」を選び、IcsClassV210.zipを選択してインストールします。  
