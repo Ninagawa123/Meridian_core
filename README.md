@@ -52,8 +52,8 @@ Teensy4.0本体とPCをUSBで接続します。
   
 #### ライブラリを導入する
 メニューから「スケッチ」→「ライブラリのインクルード」→「ライブラリの管理...」を選びライブラリマネージャを開きます。  
-~~検索テキストボックスに「Madgwick」を入力し、 「Madgwick by Arduino」と「Adafruit AHRS by Adafruit」をインストールします。Adafruit AHRSのダイアログボックスではではInstall allを選択します。  
-同様に、~~検索テキストボックスを利用し、  
+~~検索テキストボックスに「Madgwick」を入力し、 「Madgwick by Arduino」と「Adafruit AHRS by Adafruit」をインストールします。Adafruit AHRSのダイアログボックスではではInstall allを選択します。  同様に、~~  
+検索テキストボックスを利用し、  
 * 「MPU6050 by Electronic Cats」  
 * 「TsyDMASPI by hideakitai」  
 * 「ESP32DMASPI by hideakitai」  
