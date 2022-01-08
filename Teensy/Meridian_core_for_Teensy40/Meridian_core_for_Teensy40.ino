@@ -133,6 +133,10 @@
 #define BAUDRATE 1250000 //ICSサーボの通信速度1.25M
 #define TIMEOUT 1000 //ICS返信待ちのタイムアウト時間。通信できてないか確認する場合には1000ぐらいに設定するとよい。
 
+//マスターコマンド定義 (S-3-3) ---------------------------------
+#define UPDATE_YAW_CENTER 102 //センサの推定ヨー軸を現在値センターとしてリセット
+#define ENTER_TRIM_MODE 103   //トリムモードに入る（全サーボオンで垂直に気おつけ姿勢で立つ）
+
 //タイマー管理用の変数
 long frame_ms = 5;// 1フレームあたりの単位時間(ms)
 long merc = (long)millis(); // フレーム管理時計の時刻 Meridian Clock.
@@ -537,12 +541,12 @@ void loop() {
   //コマンド1: サーボオン 通常動作(3-1-1)
 
   //コマンド2: IMUのヨー軸設定(3-1-2)
-  if (r_merdim.sval[0] == 2) {
+  if (r_merdim.sval[0] == UPDATE_YAW_CENTER) {
     setyaw();
   }
 
   //コマンド3: トリムモードがオンもしくはコマンド3の時はループ
-  if ((trim_adjust == 1) or (r_merdim.sval[0] == 3)) {
+  if ((trim_adjust == 1) or (r_merdim.sval[0] == ENTER_TRIM_MODE)) {
     trimadjustment();
   }
 
