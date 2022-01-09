@@ -127,8 +127,12 @@ void setup()
     delay(100);//接続が完了するまでループで待つ
   }
   Serial.println("WiFi connected.");//WiFi接続完了通知
-  Serial.print("WiFi connected. ESP32's IP address is : ");
-  Serial.println(WiFi.localIP());//デバイスのIPアドレスの表示
+  Serial.print("ESP32's IP address is  => ");
+  Serial.println(WiFi.localIP());//ESP32自身のIPアドレスの表示
+  //ESP32自身のBluetoothMacアドレスを表示
+  uint8_t bt_mac[6];
+  esp_read_mac(bt_mac, ESP_MAC_BT);
+  Serial.printf("ESP32's Bluetooth Mac Address is => %02X:%02X:%02X:%02X:%02X:%02X\r\n", bt_mac[0], bt_mac[1], bt_mac[2], bt_mac[3], bt_mac[4], bt_mac[5]);
 
   //UDP通信の開始
   udp.begin(RESV_PORT);
