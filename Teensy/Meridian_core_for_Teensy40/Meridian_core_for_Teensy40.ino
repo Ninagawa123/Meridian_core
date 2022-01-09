@@ -326,7 +326,10 @@ void setup() {
   idr_n[12] = 0;//追加テスト用
   idr_n[13] = 0;//追加テスト用
   idr_n[14] = 0;//追加テスト用
-
+  
+  //入出力ピンのモード設定
+  pinMode(ERR_LED, OUTPUT);//通信ディレイが生じたら点灯するLED（デフォルトはT2ピン）
+  
   Serial.begin(SERIAL_PC);//シリアルモニター表示
   delay(100); merc = merc + 100; //ちょっと安定させるためのディレイ（要調整）
   krs_L.begin(); //サーボモータの通信初期設定。Serial2
