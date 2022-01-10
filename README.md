@@ -21,8 +21,9 @@ Meridianのハードウェアは通信用のESP32DevKitC、制御用のTeensy4.0
 デモは近藤サーボ(通信速度12.5Mbps）に対応しており、Meiridian Board Type.KはKHR-3HV用に搭載することができます。（専用ボードの回路図は公開しており、自作することも可能です。）  
 PC側はROS1のmelodic,noeticに対応しており、現在Rvizでの表示が可能です。またUnity(Mac版）でもヒューマノイドの姿勢をリアルタイム表示することができます。  
 
-# IDE, Board, Library Versions
+# IDE, Board, Library
 動作確認済みの各要素のバージョンは下記の通りです。
+ライブラリの導入方法については後述します。
 ##### IDE  
 - Arduino IDE 1.8.15(Mac M1)  
 - Arduino IDE 1.8.19(ubuntu20.04,ESP32のみ検証済)  
