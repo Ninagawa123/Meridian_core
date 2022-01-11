@@ -33,7 +33,7 @@ PC側はROS1のmelodic,noeticに対応しており、現在Rvizでの表示が�
 - esp32 by Espressif Systems バージョン2.0.1 (2.0.2はビルド不具合の報告あり)  
   
 ##### ライブラリ  
-- TsyDMASPI by hideakitai バージョン0.1.2  
+- TsyDMASPI by hideakitai バージョン**0.1.3** (0.1.2はNG)  
 - ESP32DMASPI by hideakitai バージョン0.2.0  
   
 # Installation
