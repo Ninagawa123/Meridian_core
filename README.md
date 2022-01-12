@@ -200,6 +200,13 @@ Error: Cannot assign requested address となる
 その場合、ESP32側にUSB給電することで動く場合があります。  
 それでも動かない場合は電源供給付きのUSBハブを利用するか、Meridianボードに電源を接続することでアンペアを確保してください。  
   
+#  Meridian consoleを実行する  
+Meridianで受け取るデータを表示できるコンソールを用意しました。
+$ pip3 install dearpygui など、必要なライブラリをインストールしてください。
+ROS信号あり、ROS信号なしが選べるので、pythonが使える環境であれば手軽にMeridianの通信をテストすることができます。
+https://github.com/Ninagawa123/Meridian_core/tree/main/Meridian_console
+
+  
 #  Unity版デモを実行する（※Macのみ動作します。Winでは現状エラーが発生します。）
   
 ###  UnityHubに登録して起動する
