@@ -423,10 +423,10 @@ float Krs2Deg(int krs, float n, float pn) { //KRS値のほか idl_n[i], idl_pn[i
 // ■ floatを100倍してshortに収める 限界を超えたら限界値張り付き short型で返す-------
 short float2HFshort(float val) {// float to Hundredfold short
   double x = val * 100; //floatの小数点以下を四捨五入して整数化
-  if (x > 32767) {
+  if (x > 32766) {
     x = 32767;
-  } else if (x < -32768) {
-    x = -32768;
+  } else if (x < -32766) {
+    x = -32767;
   }
   int y = (int)round(x);
   return (short)y;
