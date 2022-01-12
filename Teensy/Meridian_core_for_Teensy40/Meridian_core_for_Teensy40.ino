@@ -1,5 +1,10 @@
-//Meridian_core_for_Teensy_2021.12.31
+//Meridian_core_for_Teensy_2022.1.12
 //This code is for Teensy 4.0
+//
+//MPU取得情報追加[S-3],setupMPU(),getYawPitchRoll()
+//MeridianControlPanelDPG対応
+//マスターコマンド改訂 (S-3-3)
+//KRC-5FH改訂(S-3-5)
 
 /*
   -------------------------------------------------------------------------
@@ -9,8 +14,8 @@
   [00] RX1, CRX2      -> ICS_3rd_TX
   [01] TX1, CTX2      -> ICS_3rd_RX
   [02]                -> LED（lights up when the processing time is not within the specified time.）
-  [03]                -> (NeoPixel Data)
-  [04]                -> (NeoPixel Clock)
+  [03]                -> (NeoPixel?)
+  [04]                -> (NeoPixel?)
   [05]                -> ICS_Right_EN
   [06]                -> ICS_Left_EN
   [07] RX2            -> ICS_Left_TX
@@ -108,18 +113,19 @@
 #include <SPI.h> //SDカード用のライブラリ導入
 #include <SD.h> //SDカード用のライブラリ導入
 #include <TsyDMASPI.h> //SPI Master用のライブラリを導入
-#include <MadgwickAHRS.h> //MPU6050のライブラリ導入
-#include "MPU6050_6Axis_MotionApps20.h" //MPU6050のライブラリ導入2
+//#include <MadgwickAHRS.h> //MPU6050のライブラリ導入
+#include <MPU6050_6Axis_MotionApps20.h> //MPU6050のライブラリ導入
 #include <IcsHardSerialClass.h> //ICSサーボのライブラリ導入
 
 //[S-3] 各種設定 #DEFINE ---------------------------------
+
 //マウント有無とピンアサイン (S-3-1) ---------------------------------
 #define ESP32_MOUNT 1 //0:なし(SPI通信およびUDP通信を実施しない)、1:あり
 #define SD_MOUNT 1 //SDカードリーダーのありなし。MeridianBoard Type.Kは有り
 #define CHIPSELECT_SD 9 //SDカードSPI通信用のChipSelectのピン番号
-#define IMU_MOUNT 0 //IMUの搭載状況 0=off, 1=MPU6050, ...
+#define IMU_MOUNT 0 //IMUの搭載状況 0:off, 1:MPU6050(GY-521), 2:MPU9250(GY-6050/GY-9250) (※1のみ実装済,MeridianBoardではICS_R系に接続)
 #define IMU_FREQ 10 //IMUのセンサの読み取り間隔(ms)
-#define JOYPAD_MOUNT 0 //ジョイパッドの搭載 0:なし、Wiimote:1, Wiimote+:2, KRC-5FH:3 (※KRC-5FH:3のみ実装済,MeridianBoardではICS_R系に接続)
+#define JOYPAD_MOUNT 0 //ジョイパッドの搭載 0:なしorESP32, 1:SBDBT, 2:KRC-5FH (※2のみ実装済,MeridianBoardではICS_R系に接続)
 #define JOYPAD_FRAME 4 //上記JOYPADのデータを読みに行くフレーム間隔 (※KRC-5FHでは4推奨)
 #define ICS3_MOUNT 0 //半二重サーボ信号の3系のありなし
 
@@ -134,10 +140,10 @@
 #define TIMEOUT 1000 //ICS返信待ちのタイムアウト時間。通信できてないか確認する場合には1000ぐらいに設定するとよい。
 
 //マスターコマンド定義 (S-3-3) ---------------------------------
-#define UPDATE_YAW_CENTER 102 //センサの推定ヨー軸を現在値センターとしてリセット
-#define ENTER_TRIM_MODE 103   //トリムモードに入る（全サーボオンで垂直に気おつけ姿勢で立つ）
+#define UPDATE_YAW_CENTER 1002 //センサの推定ヨー軸を現在値センターとしてリセット
+#define ENTER_TRIM_MODE 1003   //トリムモードに入る（全サーボオンで垂直に気おつけ姿勢で立つ）
 
-//タイマー管理用の変数
+//タイマー管理用の変数 (S-3-4) ---------------------------------
 long frame_ms = 5;// 1フレームあたりの単位時間(ms)
 long merc = (long)millis(); // フレーム管理時計の時刻 Meridian Clock.
 long curr = (long)millis(); // 現在時刻を取得
@@ -146,20 +152,22 @@ int framecount = 0;//サイン計算用の変数
 int framecount_diff = 2;//サインカーブ動作などのフレームカウントをいくつずつ進めるか
 int joypad_framecount = 0;//JOYPADのデータを読みに行くためのフレームカウント
 
-//変数一般
-static const int MSG_BUFF = MSG_SIZE * 2; //Meridim配列の長さ（byte換算）
-int checksum; //チェックサム計算用
-int spi_ok = 0; //通信のエラーカウント
-int spi_trial = 0; //通信のエラーカウント
-bool file_open = 0; //SDカード用の変数
-int k; //各サーボの計算用変数
+//シリアル経由リモコンの受信用変数 (S-3-5) ---------------------------------
 unsigned short button_1 = 0;//受信ボタンデータ1群
 unsigned short button_2 = 0;//受信ボタンデータ2群
 short stick_Lx = 0;//受信ジョイスティックデータLx
 short stick_Ly = 0;//受信ジョイスティックデータLy
 short stick_Rx = 0;//受信ジョイスティックデータRx
 short stick_Ry = 0;//受信ジョイスティックデータRy
+unsigned short pad_btn = 0;//ボタン変数一般化変換
 
+//変数一般 (S-3-6) ---------------------------------
+static const int MSG_BUFF = MSG_SIZE * 2; //Meridim配列の長さ（byte換算）
+int checksum; //チェックサム計算用
+int spi_ok = 0; //通信のエラーカウント
+int spi_trial = 0; //通信のエラーカウント
+bool file_open = 0; //SDカード用の変数
+int k; //各サーボの計算用変数
 int test_val_1 = 0;//テスト用
 
 //共用体の宣言 : Meridim配列格納用、SPI送受信バッファ配列格納用
@@ -184,6 +192,11 @@ Quaternion q;           // [w, x, y, z]         quaternion container
 VectorFloat gravity;    // [x, y, z]            gravity vector
 float ypr[3];           // [roll, pitch, yaw]   roll/pitch/yaw container and gravity vector
 float ROLL, PITCH, YAW, YAW_ZERO;
+float mpu_data[16] ;//mpudata acc_x,y,z,gyro_x,y,z,mag_x,y,z,gr_x,y,z,rpy_r,p,y,temp
+VectorInt16 aa;         // [x, y, z]            加速度センサの測定値
+VectorInt16 gyro;       // [x, y, z]            角速度センサの測定値
+VectorInt16 mag;        // [x, y, z]            磁力センサの測定値
+long temperature;         // センサの温度測定値
 
 //ICSサーボのインスタンス設定
 IcsHardSerialClass krs_L(&Serial2, EN_L_PIN, BAUDRATE, TIMEOUT);
@@ -220,11 +233,11 @@ bool trim_adjust = 0; //トリムモードのオンオフ、起動時に下記�
 bool monitor_src = 0; //Teensyでのシリアル表示:送信ソースデータ
 bool monitor_send = 0; //Teensyでのシリアル表示:送信データ
 bool monitor_resv = 0; //Teensyでのシリアル表示:受信データ
-bool monitor_resv_check = 1; //Teensyでのシリアル表示:受信成功の可否
+bool monitor_resv_check = 0; //Teensyでのシリアル表示:受信成功の可否
 bool monitor_resv_error = 0; //Teensyでのシリアル表示:受信エラー率
 bool monitor_all_error = 0; //Teensyでのシリアル表示:全経路の受信エラー率
 bool monitor_rpy = 0; //Teensyでのシリアル表示:IMUからのrpy換算値
-bool monitor_joypad = 0; //Teensyでのシリアル表示:リモコンのデータ
+bool monitor_joypad = 1; //Teensyでのシリアル表示:リモコンのデータ
 
 void setup() {
   //-------------------------------------------------------------------------
@@ -326,10 +339,10 @@ void setup() {
   idr_n[12] = 0;//追加テスト用
   idr_n[13] = 0;//追加テスト用
   idr_n[14] = 0;//追加テスト用
-  
+
   //入出力ピンのモード設定
   pinMode(ERR_LED, OUTPUT);//通信ディレイが生じたら点灯するLED（デフォルトはT2ピン）
-  
+
   Serial.begin(SERIAL_PC);//シリアルモニター表示
   delay(100); merc = merc + 100; //ちょっと安定させるためのディレイ（要調整）
   krs_L.begin(); //サーボモータの通信初期設定。Serial2
@@ -455,6 +468,36 @@ void getYawPitchRoll() {
     PITCH = ypr[1] * 180 / M_PI;
     YAW = (ypr[0] * 180 / M_PI) - YAW_ZERO;
 
+    //加速度の値
+    mpu.dmpGetAccel(&aa, fifoBuffer);
+    mpu_data[0] = (float)aa.x;
+    mpu_data[1] = (float)aa.y;
+    mpu_data[2] = (float)aa.z;
+
+    //ジャイロの値
+    mpu.dmpGetGyro(&gyro, fifoBuffer);
+    mpu_data[3] = (float)gyro.x;
+    mpu_data[4] = (float)gyro.y;
+    mpu_data[5] = (float)gyro.z;
+
+    //磁力センサの値
+    mpu_data[6] = (float)mag.x;
+    mpu_data[7] = (float)mag.y;
+    mpu_data[8] = (float)mag.z;
+
+    //重力DMP推定値
+    mpu_data[9] = gravity.x;
+    mpu_data[10] = gravity.y;
+    mpu_data[11] = gravity.z;
+
+    //相対方向DMP推定値
+    mpu_data[12] = ypr[2] * 180 / M_PI;
+    mpu_data[13] = ypr[1] * 180 / M_PI;
+    mpu_data[14] = (ypr[0] * 180 / M_PI) - YAW_ZERO;
+
+    //温度
+    mpu_data[15] = 0;//fifoBufferからの温度取得方法が今のところ不明。
+
     if (monitor_rpy == 1) { //Teensyでのシリアル表示:IMUからのrpy換算値
       Serial.print("[Roll, Pitch, Yaw] ");
       Serial.print(ROLL);
@@ -492,7 +535,7 @@ void servo_all_off() {
 
 // ■ JOYPAD処理 ---------------------------------------------------------------
 void joypad_read() {
-  if (JOYPAD_MOUNT == 3) {//KRR5FH(KRC-5FH)をICS_R系に接続している場合
+  if (JOYPAD_MOUNT == 2) {//KRR5FH(KRC-5FH)をICS_R系に接続している場合
     joypad_framecount ++;
     if (joypad_framecount >= JOYPAD_FRAME) {
       unsigned short buttonData;
@@ -502,8 +545,27 @@ void joypad_read() {
       {
         button_1 = buttonData;
         if (monitor_joypad) {
-          Serial.print("[Button] ");
-          Serial.println(button_1);//ボタンデータを表示
+          //Serial.print("[Button] ");
+          //Serial.println(button_1);//ボタンデータを表示
+
+          pad_btn = 0;
+          if ((button_1 & 15) == 15) {//左側十時ボタン全部押しならstart押下とみなす
+            pad_btn += 1;
+          }
+          else {
+            //左側の十時ボタン
+            pad_btn +=  (button_1 & 1) * 16 + ((button_1 & 2) >> 1) * 64 +  ((button_1 & 4) >> 2) * 32 + ((button_1 & 8) >> 3) * 128; 
+          }
+          if ((button_1 & 368) == 368) pad_btn += 8;//右側十時ボタン全部押しならselect押下とみなす
+          else {
+            //右側十時ボタン
+            pad_btn += ((button_1 & 16) >> 4) * 4096 + ((button_1 & 32) >> 5) * 16384 +  ((button_1 & 64) >> 6) * 8192 + ((button_1 & 256) >> 8) * 32768; 
+          }
+          //L1,L2,R1,R2
+          pad_btn += ((button_1 & 2048) >> 11) * 2048 + ((button_1 & 4096) >> 12) * 512 +  ((button_1 & 512) >> 9) * 1024 + ((button_1 & 1024) >> 10) * 256; 
+
+          //Serial.println(pad_btn, BIN); //ボタンデータを表示          
+
         }
       }
       joypad_framecount = 0;
@@ -531,6 +593,8 @@ void loop() {
   if (JOYPAD_MOUNT != 0) {//ジョイパッドが接続設定されているかを判定
     joypad_read();
   }
+  r_merdim.sval[80]=pad_btn;
+  s_merdim.sval[80]=pad_btn;
 
   //---- < 3 > Teensy内部で位置制御する場合の処理 --------------------------------
 
@@ -612,19 +676,22 @@ void loop() {
   //s_merdim.sval[1] = 10 ;//(移動時間）
 
   // [5-3] センサー値を配列に格納
-  //s_merdim.sval[2] = (short)acc_x * 100 ; //IMU_gyro_x
-  //s_merdim.sval[3] = (short)acc_y * 100 ; //IMU_gyro_y
-  //s_merdim.sval[4] = (short)acc_z * 100 ; //IMU_gyro_z
-  //s_merdim.sval[5] = (short)gyro_x * 100 ; //IMU_acc_x
-  //s_merdim.sval[6] = (short)gyro_y * 100 ; //IMU_acc_y
-  //s_merdim.sval[7] = (short)gyro_z * 100 ; //IMU_acc_z
-  s_merdim.sval[8] = 0 ;//IMU
-  s_merdim.sval[9] = 0 ;//IMU
-  s_merdim.sval[10] = 0 ;//IMU
-  //s_merdim.sval[11] = (short)temp ;//IMU
-  s_merdim.sval[12] = float2HFshort(ROLL) ;//Madgwick_roll
-  s_merdim.sval[13] = float2HFshort(PITCH)  ;//Madgwick_pitch
-  s_merdim.sval[14] = float2HFshort(YAW) ;//Madgwick_yaw
+  if (IMU_MOUNT == 1) {
+    s_merdim.sval[2] = float2HFshort(mpu_data[0]); //IMU_acc_x
+    s_merdim.sval[3] = float2HFshort(mpu_data[1]); //IMU_acc_y
+    s_merdim.sval[4] = float2HFshort(mpu_data[2]); //IMU_acc_z
+    s_merdim.sval[5] = float2HFshort(mpu_data[3]); //IMU_gyro_x
+    s_merdim.sval[6] = float2HFshort(mpu_data[4]); //IMU_gyro_y
+    s_merdim.sval[7] = float2HFshort(mpu_data[5]); //IMU_gyro_z
+    s_merdim.sval[8] = float2HFshort(mpu_data[6]); //IMU_mag_x
+    s_merdim.sval[9] = float2HFshort(mpu_data[7]); //IMU_mag_y
+    s_merdim.sval[10] = float2HFshort(mpu_data[8]);//IMU_mag_z
+    s_merdim.sval[11] = float2HFshort(mpu_data[9]);//IMU_
+    s_merdim.sval[12] = float2HFshort(ROLL);       //DMP_roll
+    s_merdim.sval[13] = float2HFshort(PITCH);      //DMP_pitch
+    s_merdim.sval[14] = float2HFshort(YAW);        //DMP_yaw
+    s_merdim.sval[15] = float2HFshort(mpu_data[15]);//tempreature
+  }
 
   // [5-4] サーボIDごとにの現在位置もしくは計算結果を配列に格納
   for (int i = 0; i < 15; i++) {
