@@ -206,6 +206,8 @@ $ pip3 install dearpygui など、必要なライブラリをインストール�
 ROS信号あり、ROS信号なしが選べるので、pythonが使える環境であれば手軽にMeridianの通信をテストすることができます。  
 https://github.com/Ninagawa123/Meridian_core/tree/main/Meridian_console
   
+![meridianconsole](https://user-images.githubusercontent.com/8329123/149132025-10c0875a-8eca-47ce-a80f-9b12e32f400c.png)
+  
   
 #  Unity版デモを実行する（※Macのみ動作します。Winでは現状エラーが発生します。）
   
