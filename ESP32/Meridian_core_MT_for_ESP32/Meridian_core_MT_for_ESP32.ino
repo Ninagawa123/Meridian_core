@@ -9,7 +9,7 @@
 #include <WiFi.h>//UDPの設定
 #include <WiFiUdp.h>//UDPの設定
 #include <ESP32DMASPISlave.h>
-#include <FastCRC.h>
+//#include <FastCRC.h>
 ESP32DMASPI::Slave slave;
 #include <PS4Controller.h>//PS4コントローラー
 #include <ESP32Wiimote.h>
