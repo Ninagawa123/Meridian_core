@@ -209,7 +209,7 @@ https://github.com/Ninagawa123/Meridian_core/tree/main/Meridian_console
 ![meridianconsole](https://user-images.githubusercontent.com/8329123/149132025-10c0875a-8eca-47ce-a80f-9b12e32f400c.png)
   
   
-#  Unity版デモを実行する（※Macのみ動作します。Winでは現状エラーが発生します。）
+#  Unity版デモを実行する（※Macのみ動作します。Winではファイアーウォールの設定が必要です。）
   
 ###  UnityHubに登録して起動する
 フォルダ「Unity_demo」の中のMeridian_unity_demo_mac_20211231.zipを解凍します。  
@@ -219,10 +219,13 @@ UnityHubに登録されたらプロジェクトを起動します。（Unityの�
 ###  UnityのスクリプトのIPアドレスを書き換える
 画面下の「Project」→「Assets」→「Script」よりUdp_handler_sendをダブルクリックして開きます（VScodeなどが立ち上がります）  
 スクリプト9行目のconst string HOST = "192.168.1.xx"; にESP32DevKitCのIPアドレスを記入し、セーブします。
-  
+
 ###  ESP32のIPアドレスを書き換える
 これまでの手順で設定済みの場合はそのままでOKです。
 Meridian_core_for_ESP32_PathThrough.inoの93行目にUnityを使うPCのIPアドレスを入力します。
+
+### Windowsの場合はファイアーウォールを設定する
+Windowsスタートメニュー→「設定」→「更新とセキュリティ」→「Windowsセキュリティ」→「ファイアーウォールとネットワーク保護」→「詳細設定」→「受信の規則」の一覧から「Unity 2020.3.25f1 Editor」の「パブリック」となっているものを選択しダブルクリック。「接続を許可する」にチェックを入れOKする。
 
 ###  UnityとMeridianボードを起動する
 Unityを起動した後、Meridianボードを
