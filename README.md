@@ -209,7 +209,7 @@ https://github.com/Ninagawa123/Meridian_core/tree/main/Meridian_console
 ![meridianconsole](https://user-images.githubusercontent.com/8329123/149132025-10c0875a-8eca-47ce-a80f-9b12e32f400c.png)
   
   
-#  Unity版デモを実行する（※Macのみ動作します。Winではファイアーウォールの設定が必要です。）
+#  Unity版デモを実行する（※Mac/Winで動作を確認。Winではファイアーウォールの設定が必要です。）
   
 ###  UnityHubに登録して起動する
 フォルダ「Unity_demo」の中のMeridian_unity_demo_mac_20211231.zipを解凍します。  
