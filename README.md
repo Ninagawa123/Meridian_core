@@ -203,7 +203,8 @@ Error: Cannot assign requested address となる
 #  Meridian consoleを実行する  
 Meridianで受け取るデータを表示できるコンソールを用意しました。  
 $ pip3 install dearpygui など、必要なライブラリをインストールしてください。  
-ROS信号あり、ROS信号なしが選べるので、pythonが使える環境であれば手軽にMeridianの通信をテストすることができます。  
+ROS信号あり、ROS信号なしが選べるので、pythonが使える環境であれば手軽にMeridianの通信をテストすることができます。
+ (2022.04.16 すみません、Madで動きませんでした。M1はdearpyguiに対応しておりません。またIntelMacもスレッドでのGUI描写に対応しておらず、ちょっとプログラムをちょっと修正する必要があります。)
 https://github.com/Ninagawa123/Meridian_core/tree/main/Meridian_console
   
 ![meridianconsole](https://user-images.githubusercontent.com/8329123/149132025-10c0875a-8eca-47ce-a80f-9b12e32f400c.png)
