@@ -820,7 +820,7 @@ void loop() {
     }
     Serial.println();
   }
-  // [7-1] シリアルモニタ表示（SPI送信データChar型）
+  // [7-2] シリアルモニタ表示（SPI送信データChar型）
   if (monitor_send == 1) {
     Serial.print("  [Send] ");
     for (int i = 0; i < MSG_BUFF; i++) {
@@ -858,7 +858,7 @@ void loop() {
   frame_count = frame_count + frame_count_diff;//サインカーブ動作用のフレームカウントをいくつずつ進めるかをここで設定。
 
 
-  //----  [ 9 ] E S P 3 2 と の I S P に よ る 送 受 信 処 理 -------------------------------
+  //----  [ 9 ] E S P 3 2 と の S P I に よ る 送 受 信 処 理 -------------------------------
 
   // [9-1] ESP32とのSPI送受信の実行
   if (ESP32_MOUNT) {
