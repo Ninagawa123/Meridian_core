@@ -693,7 +693,7 @@ void loop() {
 
   //コマンド[1]: サーボオン 通常動作
 
-  //コマンド[2]: IMUのヨー軸設定(3-1-2)
+  //コマンド[2]: IMUのヨー軸設定
   if (r_spi_meridim.sval[0] == UPDATE_YAW_CENTER) {
     setyaw();
   }
