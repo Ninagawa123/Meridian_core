@@ -175,7 +175,7 @@ $ source ~/catkin_ws/devel/setup.bash
 ### パスを登録しておく（次回起動時にもroslaunchが使えるようになる）  
 $ echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc  
 
-## ROS,rviz,meridian_demo実行する
+## ROS,rviz,meridian_demoを実行する
 １つ目のターミナルを開き、  
 $ roscore  
   
