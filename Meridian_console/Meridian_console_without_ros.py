@@ -53,7 +53,7 @@ import atexit
 import struct
 
 #定数
-TITLE_VERSION="Meridian Console v22.0418_osx" #DPGのウィンドウタイトル兼バージョン表示
+TITLE_VERSION="Meridian Console without ROS" #DPGのウィンドウタイトル兼バージョン表示
 
 UDP_RESV_IP="192.168.1.xx" #このPCのIPアドレス
 UDP_RESV_PORT=22222 #受信ポート
