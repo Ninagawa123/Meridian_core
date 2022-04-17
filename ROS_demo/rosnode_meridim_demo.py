@@ -40,7 +40,7 @@ while not rospy.is_shutdown():
             print(r_short_data)
 
             checksum = np.array([0], dtype=np.int16)
-            for i in  range(MSG_SIZE-2):
+            for i in  range(MSG_SIZE-1):
                 checksum[0] += r_short_data[i]
             checksum[0] = ~checksum[0] & 0xffff
             print("[Calc] ",checksum[0])
