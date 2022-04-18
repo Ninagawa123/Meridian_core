@@ -126,7 +126,6 @@ def meridian_loop():
     global y
 
     while (True):
-        print("checksss")
         
         message1 = "Waiting for UDP data from "+UDP_SEND_IP+"..."
         with closing(sock):
