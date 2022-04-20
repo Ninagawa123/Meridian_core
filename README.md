@@ -167,9 +167,9 @@ $ chmod 755 rosnode_meridim_demo.py
 ↑念のためスクリプトを実行可能ファイルにします。 
 
 ### パッケージをビルドする
-$ cd ~/catkin_ws/  
+$ cd ~/catkin_ws/
+$ catkin build  (※下の行と順番が逆だったので修正しました2022.04.20)
 $ source devel/setup.bash  
-$ catkin build  
 $ source ~/catkin_ws/devel/setup.bash  
 
 ### パスを登録しておく（次回起動時にもroslaunchが使えるようになる）  
