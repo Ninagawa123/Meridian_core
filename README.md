@@ -60,7 +60,7 @@ https://github.com/Ninagawa123/Meridian_core
 Teensy4.0本体とPCをUSBで接続します。  
 *※信号線を含まない充電専用のUSBコードでは接続できません。  
 ※Teensy4.0はMeridianBoardに接続したままでも大丈夫ですが、MeridianBoardの供給電源はオフにしてください。Type.Kでは電源コネクタとなりのジャンパピンを抜くことでもTeensy,ESP32への電源供給をオフにできます。*   
-メニューから「ファイル」→「開く」を選び、「Meridian_core_for_Teensy4」の中の「Meridian_core_for_Teensy4.ino」を開きます。  
+メニューから「ファイル」→「開く」を選び、「Meridian_core_MT_for_Teensy40」の中の「Meridian_core_MT_for_Teensy40.ino」を開きます。  
 メニューから「ツール」→「ボード」でTeensy4.0を選びます。  
   
 #### ライブラリを導入する
@@ -81,19 +81,20 @@ https://kondo-robot.com/faq/ics-library-a2 より「ICS_Library_for_Arduino_V2.1
   
 ## ESP32の準備
 PCにESP32DevKitCをUSBで接続し、  
-メニューから「ファイル」→「開く」で「Meridian_core_for_ESP32_PassThrough」の中の「Meridian_core_for_ESP32_PassThrough.ino」を選びます。  
+メニューから「ファイル」→「開く」で「Meridian_core_MT_for_ESP32」の中の「Meridian_core_MT_for_ESP32.ino」を選びます。  
   
 ### wifiを設定する
-91行目-93行目について、接続したいwifiのアクセスポイントのSSIDとパスワードを入力します。  
+[SETTING] 各種設定 (ES-1)について、接続したいwifiのアクセスポイントのSSIDとパスワードを入力します。  
 *アクセスポイントは5GHzではなく**2.4GHz**に対応している必要があります。*  
-また、接続先のPCのIPアドレスも記入します。  
+また、接続先のPCのIPアドレスも記入します。
+※機器機器のIPを固定することも可能ですが、説明はここでは割愛します。（スクリプトないに書かれています）
   
 ### 接続先のPCのIPアドレスの調べ方
 windowsのコマンドプロンプトを開き、  
 $ ipconfig （Ubuntuの場合は$ ip a もしくは $ ifconfig）  
 と入力しコマンド実行します。  
 IPv4アドレスが表示されます（192.168.1.xxなど)  
-*Macの場合は画面右上のwifiマークから”ネットワーク”環境設定...で表示されます。*  
+Macの場合は画面右上のwifiマークから”ネットワーク”環境設定...で表示されます。
   
 ### ESP32にスクリプトを書き込む
 PCとESP32DecKitCをUSBで接続し、  
@@ -111,12 +112,12 @@ Connecting to WiFi to : (アクセスポイントSSID名) WiFi connected. WiFi c
   
 また、サーボの0度状態を下記の姿勢に、またサーボの＋回転方向も下図の矢印方向に合わせます。  
 *左半身および体の中心は下図に順次つつ、右半身については左半身のミラー方向に回転に合わせます。*  
-*サーボの回転方向は、サーボの自身設定以外にも、Teensyスクリプトの261行目以降でも変更できます*  
+*サーボの回転方向は、サーボの自身設定以外にも、Teensyスクリプトの (TS-10)サーボ設定 の項目でも変更できます*  
   
 <img width="600" alt="motorccw" src="https://user-images.githubusercontent.com/8329123/147812253-e6cbe388-f70a-445f-80c0-b4cd899aa15a.png">
   
 ### サーボのマウントを設定
-Teensyスクリプトの261行目以降で、サーボのマウントを変更できます。  
+Teensyスクリプトの (TS-10)サーボ設定の項目で、サーボのマウントを変更できます。  
 接続しているサーボIDは1に、接続していないIDは0に設定します。  
 サーボのマウント設定により、KHR-3HVのフルセットがなくてもICSサーボが最低１つあればデモをテストすることができます。  
 *サーボ設定に対し１箇所でも接続されていない箇所があると動作しません。存在しないサーボからの返信を待ち続けるためです。*  
@@ -131,7 +132,8 @@ https://github.com/Ninagawa123/Meridian_core/blob/main/Meridian_Board_TypeK_docs
   
 ## ROS noeticの導入
 お手持ちの環境にROSを導入してください。  
-Raspberry py4でROS-noeticを導入する手順については下記にまとめました。  
+Raspberry pi4でROS-noeticを導入する手順については下記にまとめました。
+(ただしMeridian Consoleはまだ使用ライブラリの都合でri4に対応していません。)
 https://qiita.com/Ninagawa_Izumi/items/e84e9841f7a048832fcc  
   
 ## URDFの表示テスト
@@ -205,7 +207,9 @@ Meridianで受け取るデータを表示できるコンソールを用意しま
 $ pip3 install dearpygui など、必要なライブラリをインストールしてください。  
 ROS信号あり、ROS信号なしが選べるので、pythonが使える環境であれば手軽にMeridianの通信をテストすることができます。
  (~~2022.04.16 すみません、Macで動きませんでした。M1はdearpyguiに対応しておりません。またIntelMacもスレッドでのGUI描写に対応しておらず、ちょっとプログラムをちょっと修正する必要があります。~~ 2022.04.18 IntelMacは動作するように対応できました。M1はまだです。)
+ 
 https://github.com/Ninagawa123/Meridian_core/tree/main/Meridian_console
+
 (ROSの入っていないMacやWinではMeridian_console_without_ros.pyをお試しください。）
 
 ![meridianconsole](https://user-images.githubusercontent.com/8329123/149132025-10c0875a-8eca-47ce-a80f-9b12e32f400c.png)
