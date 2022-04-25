@@ -1,5 +1,5 @@
 
-// Meridian_core_for_Teensy_2022.04.16 By Izumi Ninagawa & Meridian Project
+// Meridian_core_for_Teensy_2022.04.24 By Izumi Ninagawa & Meridian Project
 // MIT Licenced.
 
 //This code is for Teensy 4.0
@@ -13,46 +13,46 @@
 //---------------------------------------------------
 
 // (TS-1-1) 変更頻度高め
-#define VERSION "Meridian_core_MT_for_Teensy_2022.04.16"//バージョン表示
-#define FRAME_DURATION 10//1フレームあたりの単位時間（単位ms）
+#define VERSION "Meridian_core_MT_for_Teensy_2022.04.24"//バージョン表示
+#define FRAME_DURATION 10 //1フレームあたりの単位時間（単位ms）
 
 // (TS-1-2) シリアルモニタリング切り替え
-#define MONITOR_SRC 0        //Teensyでのシリアル表示:送信ソースデータ
-#define MONITOR_SEND 0       //Teensyでのシリアル表示:送信データ
-#define MONITOR_RESV 0       //Teensyでのシリアル表示:受信データ
+#define MONITOR_SRC 0 //Teensyでのシリアル表示:送信ソースデータ
+#define MONITOR_SEND 0 //Teensyでのシリアル表示:送信データ
+#define MONITOR_RESV 0 //Teensyでのシリアル表示:受信データ
 #define MONITOR_RESV_SHORT 0 //Teensyでのシリアル表示:受信データ(short)
 #define MONITOR_RESV_CHECK 0 //Teensyでのシリアル表示:受信成功の可否
 #define MONITOR_RESV_ERROR 0 //Teensyでのシリアル表示:受信エラー率
-#define MONITOR_ALL_ERROR 0  //Teensyでのシリアル表示:全経路の受信エラー率
-#define MONITOR_RPY 0        //Teensyでのシリアル表示:IMUからのrpy換算値
-#define MONITOR_JOYPAD 0     //Teensyでのシリアル表示:リモコンのデータ
+#define MONITOR_ALL_ERROR 1 //Teensyでのシリアル表示:全経路の受信エラー率
+#define MONITOR_RPY 0 //Teensyでのシリアル表示:IMUからのrpy換算値
+#define MONITOR_JOYPAD 0 //Teensyでのシリアル表示:リモコンのデータ
 
 // (TS-1-3) マウント有無とピンアサイン
-#define ESP32_MOUNT 1   //ESPの搭載 0:なし(SPI通信およびUDP通信を実施しない), 1:あり
-#define IMU_MOUNT 1     //IMUの搭載状況 0:off, 1:MPU6050(GY-521), 2:MPU9250(GY-6050/GY-9250) (※1のみ実装済,MeridianBoardではICS_R系に接続)
-#define IMU_FREQ 10     //IMUのセンサの読み取り間隔(ms)
-#define JOYPAD_MOUNT 0  //ジョイパッドの搭載 0:なしorESP32orPCで受信, 1:SBDBT, 2:KRC-5FH (※2のみ実装済,MeridianBoardではICS_R系に接続)
-#define JOYPAD_FRAME 4  //上記JOYPADのデータを読みに行くフレーム間隔 (※KRC-5FHでは4推奨)
-#define ICS3_MOUNT 0    //半二重サーボ信号の3系のありなし
-#define SD_MOUNT 1      //SDカードリーダーのありなし. MeridianBoard Type.Kは有り
+#define ESP32_MOUNT 1 //ESPの搭載 0:なし(SPI通信およびUDP通信を実施しない), 1:あり
+#define IMU_MOUNT 1 //IMUの搭載状況 0:off, 1:MPU6050(GY-521), 2:MPU9250(GY-6050/GY-9250) (※1のみ実装済,MeridianBoardではICS_R系に接続)
+#define IMU_FREQ 10 //IMUのセンサの読み取り間隔(ms)
+#define JOYPAD_MOUNT 0 //ジョイパッドの搭載 0:なしorESP32orPCで受信, 1:SBDBT, 2:KRC-5FH (※2のみ実装済,MeridianBoardではICS_R系に接続)
+#define JOYPAD_FRAME 4 //上記JOYPADのデータを読みに行くフレーム間隔 (※KRC-5FHでは4推奨)
+#define ICS3_MOUNT 0 //半二重サーボ信号の3系のありなし
+#define SD_MOUNT 1 //SDカードリーダーのありなし. MeridianBoard Type.Kは有り
 #define CHIPSELECT_SD 9 //SDカードSPI通信用のChipSelectのピン番号
 
 // (TS-1-4) マスターコマンド定義
-#define TRIM_ADJUST_MODE 0     //トリムモードのオンオフ、起動時に下記の設定値で静止させたい時は1
+#define TRIM_ADJUST_MODE 0 //トリムモードのオンオフ、起動時に下記の設定値で静止させたい時は1
 #define UPDATE_YAW_CENTER 1002 //センサの推定ヨー軸を現在値センターとしてリセット
 #define ENTER_TRIM_MODE 1003   //トリムモードに入る（全サーボオンで垂直に気おつけ姿勢で立つ）
 
 // (TS-1-5) その他固定値
-#define MSG_SIZE 90        //Meridim配列の長さ設定（デフォルトは90）
-#define ERR_LED 2          //LED用 処理が時間内に収まっていない場合に点灯
-#define EN_L_PIN 6         //ICSサーボ信号の左系のENピン番号（固定）
-#define EN_R_PIN 5         //ICSサーボ信号の右系のENピン番号（固定）
-#define EN_3_PIN 23        //半二重サーボ信号の3系のENピン番号（固定）
+#define MSG_SIZE 90 //Meridim配列の長さ設定（デフォルトは90）
+#define ERR_LED 2 //LED用 処理が時間内に収まっていない場合に点灯
+#define EN_L_PIN 6 //ICSサーボ信号の左系のENピン番号（固定）
+#define EN_R_PIN 5 //ICSサーボ信号の右系のENピン番号（固定）
+#define EN_3_PIN 23 //半二重サーボ信号の3系のENピン番号（固定）
 #define SERIAL_PC 60000000 //PCとのシリアル速度（モニタリング表示用）
-#define I2C_CLOCK 400000   //I2Cの速度（400kHz推奨）
-#define SPI_CLOCK 6000000  //SPI通信の速度（6000000kHz推奨）
-#define BAUDRATE 1250000   //ICSサーボの通信速度1.25M
-#define TIMEOUT 2          //ICS返信待ちのタイムアウト時間。通信できてないか確認する場合には1000ぐらいに設定するとよい
+#define I2C_CLOCK 400000// I2Cの速度（400kHz推奨）
+#define SPI_CLOCK 6000000// SPI通信の速度（6000000kHz推奨）
+#define BAUDRATE 1250000 //ICSサーボの通信速度1.25M
+#define TIMEOUT 2 //ICS返信待ちのタイムアウト時間。通信できてないか確認する場合には1000ぐらいに設定するとよい
 
 /*
   -------------------------------------------------------------------------
@@ -86,7 +86,7 @@
   [15] RX3            -> ICS_Right_TX
   [14] TX3            -> ICS_Right_RX
   [13] SCK(CRX1)      -> SPI/SD_SCK (ESP32[14]) & SD_CLK (SD[5])
-  
+
   -------------------------------------------------------------------------
   -- [HARD] サーボIDとロボット部位、軸との対応表 (TS-3-HARD) -------------------
   -------------------------------------------------------------------------
@@ -204,18 +204,20 @@ long curr_micro = (long)micros(); // 現在時刻を取得
 int frame_count = 0;//サイン計算用の変数
 int frame_count_diff = 2;//サインカーブ動作などのフレームカウントをいくつずつ進めるか
 int joypad_frame_count = 0;//JOYPADのデータを読みに行くためのフレームカウント
-char frame_clock = 0;//フレーム毎に0-199をカウントし、Meridm88の下位8ビットに格納
-char frame_clock_resv = 0;//今フレームに受信したframe_clockを格納
-char frame_clock_resv_past = 0;//前フレームに受信したframe_clockをキープ
-char frame_clock_fix = 0;//受信カウント取りこぼし修正用
+char frame_sync_s = 0;//フレーム毎に0-199をカウントし、送信用Meridm[88]の下位8ビットに格納
+//char frame_sync_r = 0;//フレーム毎に0-199をカウントし、受信値と比較
+char frame_sync_r_expect = 0;//フレーム毎に0-199をカウントし、受信値と比較
+char frame_sync_r_resv = 0;//今フレームに受信したframe_sync_rを格納
+//char frame_sync_r_resv_past = 0;//前フレームに受信したframe_sync_rをキープ
 
 // (TS-6-5) エラーカウント用
 int err_esp_pc = 0;//PCの受信エラー（ESP32からのUDP）
 int err_pc_esp = 0;//ESP32の受信エラー（PCからのUDP）
 int err_esp_tsy = 0;//Teensyの受信エラー（ESP32からのSPI）
 int err_tsy_esp = 0;//ESP32の受信エラー（TeensyからのSPI）
-int err_tsy_skip = 0;//Teensyの受信エラー（受信データスキップ）
-int err_pc_skip = 0; //PCの受信エラー（受信データスキップ）
+int err_esp_skip = 0;//UDP→ESP受信のカウントの連番スキップ回数
+int err_tsy_skip = 0;//ESP→Teensy受信のカウントの連番スキップ回数
+int err_pc_skip = 0; //PC受信のカウントの連番スキップ回数
 
 // (TS-6-6) 各種モード設定
 bool trim_adjust = TRIM_ADJUST_MODE; //トリムモードのオンオフ、起動時に下記の設定値で静止させたい時は1
@@ -248,13 +250,13 @@ Quaternion q;           // [w, x, y, z]         quaternion container
 VectorFloat gravity;    // [x, y, z]            gravity vector
 float ypr[3];           // [roll, pitch, yaw]   roll/pitch/yaw container and gravity vector
 float ROLL, PITCH, YAW, YAW_ZERO;
-float mpu_data[16] ;    //mpudata acc_x,y,z,gyro_x,y,z,mag_x,y,z,gr_x,y,z,rpy_r,p,y,temp
+float mpu_data[16] ;//mpudata acc_x,y,z,gyro_x,y,z,mag_x,y,z,gr_x,y,z,rpy_r,p,y,temp
 VectorInt16 aa;         // [x, y, z]            加速度センサの測定値
 VectorInt16 gyro;       // [x, y, z]            角速度センサの測定値
 VectorInt16 mag;        // [x, y, z]            磁力センサの測定値
-long temperature;       // センサの温度測定値
+long temperature;         // センサの温度測定値
 
-// (TS-6-9) サーボ設定関連 
+// (TS-6-9) サーボ設定関連
 // (TS-6-9-1) ICSサーボのインスタンス設定
 IcsHardSerialClass krs_L(&Serial2, EN_L_PIN, BAUDRATE, TIMEOUT);
 IcsHardSerialClass krs_R(&Serial3, EN_R_PIN, BAUDRATE, TIMEOUT);
@@ -319,74 +321,74 @@ void setup() {
   idr_mt[14] = 0; //追加テスト用
 
   // (TS-10-2) 各サーボの内外回転プラマイ方向補正(1 or -1)
-  idl_pn[0]  = 1; //腰ヨー
-  idl_pn[1]  = 1; //左肩ピッチ
-  idl_pn[2]  = 1; //左肩ロール
-  idl_pn[3]  = 1; //左肘ヨー
-  idl_pn[4]  = 1; //左肘ピッチ
-  idl_pn[5]  = 1; //左股ヨー
-  idl_pn[6]  = 1; //左股ロール
-  idl_pn[7]  = 1; //左股ピッチ
-  idl_pn[8]  = 1; //左膝ピッチ
-  idl_pn[9]  = 1; //左足首ピッチ
-  idl_pn[10] = 1; //左足首ロール
-  idl_pn[11] = 1; //追加テスト用
-  idl_pn[12] = 1; //追加テスト用
-  idl_pn[13] = 1; //追加テスト用
-  idl_pn[14] = 1; //追加テスト用
-  idr_pn[0]  = 1; //頭ヨー
-  idr_pn[1]  = 1; //右肩ピッチ
-  idr_pn[2]  = 1; //右肩ロール
-  idr_pn[3]  = 1; //右肘ヨー
-  idr_pn[4]  = 1; //右肘ピッチ
-  idr_pn[5]  = 1; //右股ヨー
-  idr_pn[6]  = 1; //右股ロール
-  idr_pn[7]  = 1; //右股ピッチ
-  idr_pn[8]  = 1; //右膝ピッチ
-  idr_pn[9]  = 1; //右足首ピッチ
-  idr_pn[10] = 1; //右足首ロール
-  idr_pn[11] = 1; //追加テスト用
-  idr_pn[12] = 1; //追加テスト用
-  idr_pn[13] = 1; //追加テスト用
-  idr_pn[14] = 1; //追加テスト用
+  idl_pn[0]  = 1;//頭ヨー
+  idl_pn[1]  = 1;//左肩ピッチ
+  idl_pn[2]  = 1;//左肩ロール
+  idl_pn[3]  = 1;//左肘ヨー
+  idl_pn[4]  = 1;//左肘ピッチ
+  idl_pn[5]  = 1;//左股ヨー
+  idl_pn[6]  = 1;//左股ロール
+  idl_pn[7]  = 1;//左股ピッチ
+  idl_pn[8]  = 1;//左膝ピッチ
+  idl_pn[9]  = 1;//左足首ピッチ
+  idl_pn[10] = 1;//左足首ロール
+  idl_pn[11] = 1;//追加テスト用
+  idl_pn[12] = 1;//追加テスト用
+  idl_pn[13] = 1;//追加テスト用
+  idl_pn[14] = 1;//追加テスト用
+  idr_pn[0]  = 1;//腰ヨー
+  idr_pn[1]  = 1;//右肩ピッチ
+  idr_pn[2]  = 1;//右肩ロール
+  idr_pn[3]  = 1;//右肘ヨー
+  idr_pn[4]  = 1;//右肘ピッチ
+  idr_pn[5]  = 1;//右股ヨー
+  idr_pn[6]  = 1;//右股ロール
+  idr_pn[7]  = 1;//右股ピッチ
+  idr_pn[8]  = 1;//右膝ピッチ
+  idr_pn[9]  = 1;//右足首ピッチ
+  idr_pn[10] = 1;//右足首ロール
+  idr_pn[11] = 1;//追加テスト用
+  idr_pn[12] = 1;//追加テスト用
+  idr_pn[13] = 1;//追加テスト用
+  idr_pn[14] = 1;//追加テスト用
 
   // (TS-10-3) 各サーボの直立デフォルト値　(KRS値  0deg=7500, +-90deg=7500+-2667  KRS値=deg/0.03375)
   //           直立状態になるよう、具体的な数値を入れて現物調整する
-  idl_n[0]  = 0; //腰ヨー
+  idl_n[0]  = 0;//頭ヨー
   idl_n[1]  = -70; //左肩ピッチ
-  idl_n[2]  = -2700; //左肩ロール
+  idl_n[2]  = -2700 ; //左肩ロール
   idl_n[3]  = 0;//左肘ヨー
   idl_n[4]  = 2666; //左肘ピッチ
   idl_n[5]  = 0; //左股ヨー
   idl_n[6]  = 0; //左股ロール
   idl_n[7]  = -40; //左股ピッチ
-  idl_n[8]  = -1720;//左膝ピッチ
+  idl_n[8]  = -1720; //左膝ピッチ
   idl_n[9]  = -600; //左足首ピッチ
   idl_n[10] = -20; //左足首ロール
   idl_n[11] = 0; //追加テスト用
   idl_n[12] = 0; //追加テスト用
   idl_n[13] = 0; //追加テスト用
   idl_n[14] = 0; //追加テスト用
-  idr_n[0]  = 0; //頭ヨー
+  idr_n[0]  = 0; //腰ヨー
   idr_n[1]  = 0; //右肩ピッチ
   idr_n[2]  = -2650; //右肩ロール
-  idr_n[3]  = 0; //右肘ヨー
+  idr_n[3]  = 0;//右肘ヨー
   idr_n[4]  = 2666; //右肘ピッチ
-  idr_n[5]  = 0;  //右股ヨー
-  idr_n[6]  = 50; //右股ロール
+  idr_n[5]  = 0;//右股ヨー
+  idr_n[6]  = 50;//右股ロール
   idr_n[7]  = -100;//右股ピッチ
   idr_n[8]  = -1700; //右膝ピッチ
   idr_n[9]  = -600; //右足首ピッチ
   idr_n[10] = -70; //右足首ロール
-  idr_n[11] = 0; //追加テスト用
-  idr_n[12] = 0; //追加テスト用
-  idr_n[13] = 0; //追加テスト用
-  idr_n[14] = 0; //追加テスト用
+  idr_n[11] = 0;//追加テスト用
+  idr_n[12] = 0;//追加テスト用
+  idr_n[13] = 0;//追加テスト用
+  idr_n[14] = 0;//追加テスト用
 
   //-------------------------------------------------------------------------
   //---- (TS-11) 起動時設定 --------------------------------------------------
   //-------------------------------------------------------------------------
-  
+
   // (TS-11-1) 入出力ピンのモード設定
   pinMode(ERR_LED, OUTPUT);//通信ディレイが生じたら点灯するLED（デフォルトはT2ピン）
 
@@ -693,7 +695,7 @@ void loop() {
 
   //コマンド[1]: サーボオン 通常動作
 
-  //コマンド[2]: IMUのヨー軸設定
+  //コマンド[2]: IMUのヨー軸設定(3-1-2)
   if (r_spi_meridim.sval[0] == UPDATE_YAW_CENTER) {
     setyaw();
   }
@@ -791,12 +793,12 @@ void loop() {
     s_spi_meridim.sval[i * 2 + 51] = float2HFshort(idr_d[i]); //仮にここでは最新のサーボ角度degreeを格納
   }
 
-  // [6-5] フレームスキップ検出用のカウントを格納
-  frame_clock ++;
-  if (frame_clock > 199) {
-    frame_clock = 0;
+  // [6-5] フレームスキップ検出用のカウントをカウントアップして送信用に格納
+  frame_sync_s ++;
+  if (frame_sync_s > 199) {
+    frame_sync_s = 0;
   }
-  s_spi_meridim.bval[176] = frame_clock;
+  s_spi_meridim.bval[176] = frame_sync_s;
 
   // [6-6] カスタムデータを配列格納
 
@@ -820,7 +822,7 @@ void loop() {
     }
     Serial.println();
   }
-  // [7-2] シリアルモニタ表示（SPI送信データChar型）
+  // [7-1] シリアルモニタ表示（SPI送信データChar型）
   if (monitor_send == 1) {
     Serial.print("  [Send] ");
     for (int i = 0; i < MSG_BUFF; i++) {
@@ -866,6 +868,7 @@ void loop() {
 
     spi_trial ++;//SPI送受信回数のカウント
 
+
     // [9-2] ESP32からのSPI受信データチェックサム確認と成否のシリアル表示
     //チェックサムがOKならバッファから受信配列に転記
     if (checksum_rslt(r_spi_meridim_dma.sval, MSG_SIZE))
@@ -887,24 +890,33 @@ void loop() {
     }
 
     // [9-3] 通信エラー処理(スキップ検出)
-    //frame_clockの確認(受信フレームにスキップが生じていないかをMeridim[88]の下位8ビットのカウンターで判断)
-    frame_clock_resv = r_spi_meridim.bval[176];//数値を受け取る
-    frame_clock_fix = 0;//エラーカウント補正値をリセット
+    frame_sync_r_expect ++;//フレームカウント予想値を加算
+    if (frame_sync_r_expect > 199) { //予想値が200以上ならカウントを0に戻す
+      frame_sync_r_expect = 0;
+    }
 
-    if (frame_clock_resv == frame_clock_resv_past + 1) //frame_clockの前回との差が1なら受信スキップなし
+    //Serial.print(int(frame_sync_r_resv));
+    //Serial.print(":");
+    //Serial.println(int(frame_sync_r_expect));
+
+    //frame_sync_rの確認(受信フレームにスキップが生じていないかをMeridim[88]の下位8ビットのカウンターで判断)
+    frame_sync_r_resv = r_spi_meridim.bval[176];//数値を受け取る
+
+    if (frame_sync_r_resv == frame_sync_r_expect) //frame_sync_rの受信値が期待通りなら順番どおり受信
     {
       r_spi_meridim.bval[177] &= B11111101; //エラーフラグ9番(Teensy受信のスキップ検出)をオフ
-    } else if ((frame_clock_resv == 0) and (frame_clock_resv_past == 199))//frame_clockを0に戻すタイミングの場合
-    {
-      r_spi_meridim.bval[177] &= B11111101; //エラーフラグ9番(Teensy受信のスキップ検出)をオフ
+      //Serial.println("Tsy sequensial OK!");
     } else
     {
       r_spi_meridim.bval[177] |= B00000010; //エラーフラグ9番(Teensy受信のスキップ検出)をオン
-      err_tsy_skip ++;
-      if (frame_clock_resv == frame_clock_resv_past)//同じ値を2回受信した時はカウントアップ補正を施す
+      if (frame_sync_r_resv == frame_sync_r_expect - 1)
       {
-        frame_clock_fix = 1;
+        frame_sync_r_expect = frame_sync_r_resv + 1; //同じ値を２回取得した場合には実際はシーケンスが進んだものとして補正（アルゴリズム要検討）
+      } else
+      {
+        frame_sync_r_expect = frame_sync_r_resv; //取りこぼしについては現在の受信値を正解の予測値としてキープ
       }
+      err_tsy_skip ++;
     }
 
     // [9-4] 通信エラー処理(エラーカウンタへの反映)
@@ -924,13 +936,20 @@ void loop() {
     {
       err_tsy_esp ++;
     }
+    if ((r_spi_meridim.bval[177] >> 2) & B00000001)//Meridim[88] bit10:UDP→ESP受信のカウントのスキップ
+    {
+      err_esp_skip ++;
+    }
+    if ((r_spi_meridim.bval[177] >> 1) & B00000001)//Meridim[88] bit9:ESP→Teensy受信のカウントのスキップ
+    {
+      err_tsy_skip ++;
+    }
     if ((r_spi_meridim.bval[177]) & B00000001)//Meridim[88] bit8:PC受信のカウントのスキップ
     {
       err_pc_skip ++;
     }
-    
 
-  //----  [ 10 ] シ リ ア ル モ ニ タ リ ン グ 表 示 処 理 2 -------------------------------
+    //----  [ 10 ] シ リ ア ル モ ニ タ リ ン グ 表 示 処 理 2 -------------------------------
 
     // [10-1] //受信データの表示（SPI受信データShort型）
     if (monitor_resv) {
@@ -941,7 +960,7 @@ void loop() {
       }
       Serial.println();
     }
-    
+
     // [10-2] //受信エラー率の表示
     if (monitor_resv_error) {
       if (spi_trial % 200 == 0) {
@@ -953,8 +972,8 @@ void loop() {
         Serial.println(spi_trial);
       }
     }
-    
-    // [10-3] 全経路のエラー数/率の表示
+
+    // [10-3] 全経路のエラー数の表示
     if (monitor_all_error) {
       Serial.print("[ERRORs] esp->pc:");
       Serial.print(err_esp_pc);
@@ -966,15 +985,13 @@ void loop() {
       Serial.print(err_esp_tsy);
       Serial.print("  tsy-skip:");
       Serial.print(err_tsy_skip);//
+      Serial.print("  esp-skip:");
+      Serial.print(err_esp_skip);//
       Serial.print("  pc-skip:");
       Serial.print(err_pc_skip);//
-      Serial.print("  clk_snd:");
-      Serial.print(frame_clock, DEC);
-      Serial.print("  clk_rsv:");
-      Serial.print(frame_clock_resv, DEC);
-      Serial.print("  clk_pst:");
-      Serial.print(frame_clock_resv_past, DEC);
-      Serial.print("  [177]:");
+      Serial.print("  seq:");
+      Serial.print(int(frame_sync_r_resv));//
+      Serial.print("  [ERR]:");
       Serial.print(r_spi_meridim.bval[177], BIN);
       Serial.println();
     }
@@ -982,8 +999,8 @@ void loop() {
 
   //----  [ 11 ] 積 み 残 し 処 理  -------------------------------------------------
   //今回の受信カウンタを次回のpastとしてキープ(補正あり)
-  frame_clock_resv_past = frame_clock_resv + frame_clock_fix;
-  if (frame_clock_resv_past > 199) {
-    frame_clock_resv_past = 0;
-  }
+  //frame_sync_r_resv_past = frame_sync_r_resv + frame_sync_r_expect;
+  //if (frame_sync_r_resv_past > 199) {
+  //  frame_sync_r_resv_past = 0;
+  //}
 }
