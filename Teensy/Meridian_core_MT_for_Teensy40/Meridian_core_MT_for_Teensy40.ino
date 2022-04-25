@@ -998,9 +998,5 @@ void loop() {
   }
 
   //----  [ 11 ] 積 み 残 し 処 理  -------------------------------------------------
-  //今回の受信カウンタを次回のpastとしてキープ(補正あり)
-  //frame_sync_r_resv_past = frame_sync_r_resv + frame_sync_r_expect;
-  //if (frame_sync_r_resv_past > 199) {
-  //  frame_sync_r_resv_past = 0;
-  //}
+  //
 }
