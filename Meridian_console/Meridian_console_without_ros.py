@@ -54,7 +54,7 @@ import struct
 #from sensor_msgs.msg import JointState
 
 #定数
-TITLE_VERSION="Meridian Console v22.0425" #DPGのウィンドウタイトル兼バージョン表示
+TITLE_VERSION="Meridian Console v22.0426" #DPGのウィンドウタイトル兼バージョン表示
 
 UDP_RESV_IP="192.168.1.xx" #このPCのIPアドレス
 UDP_RESV_PORT=22222 #受信ポート
@@ -171,9 +171,7 @@ def meridian_loop():
     global x
     global y
 
-    while (True):
-        print("checksss")
-        
+    while (True):        
         message1 = "Waiting for UDP data from "+UDP_SEND_IP+"..."
         with closing(sock):
             while True:
@@ -321,8 +319,6 @@ def meridian_loop():
                 checksum[0] = ~checksum_int
                 s_meridim[MSG_SIZE-1]=checksum[0]
 
-                #time.sleep(2/1000) #少し休む場合
-
                 #データをパックしてUDP送信
                 s_bin_data=struct.pack('90h',*s_meridim)
                 sock.sendto(s_bin_data,(UDP_SEND_IP,UDP_SEND_PORT))
@@ -393,7 +389,6 @@ def set_send_virtual():#チェックボックスに従いデータ送信フラ�
         print("Quit nothing. Virtual-Hard Uninplemented")
 
 def ros1_pub():#チェックボックスに従いROS1パブリッシュフラグをオンオフ
-    #print("ROS1 is not available.")
     global flag_ros1_pub
     if flag_ros1_pub == 0 :
         flag_ros1_pub = 1
@@ -467,11 +462,10 @@ def main():
         error_count_pc_skip = 0
         start = time.time() 
     
-    while(True):
-        
+    while(True):        
         # dpg描画 ==================================================
         dpg.create_context()
-        dpg.create_viewport(title=TITLE_VERSION, width=600, height=520)
+        dpg.create_viewport(title=TITLE_VERSION, width=600, height=600)
 
         # （画面左上）サーボ位置モニタリング用のウィンドウ ==================================================
         with dpg.window(label="Axis Monitor", width=250, height=350,pos=[5,5]):
