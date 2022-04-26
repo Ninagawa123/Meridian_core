@@ -320,7 +320,7 @@ def meridian_loop():
                 checksum[0] = ~checksum_int
                 s_meridim[MSG_SIZE-1]=checksum[0]
 
-                time.sleep(2/1000) #少し休む場合
+                #time.sleep(2/1000) #少し休む場合
 
                 #データをパックしてUDP送信
                 s_bin_data=struct.pack('90h',*s_meridim)
