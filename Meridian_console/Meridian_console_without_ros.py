@@ -320,7 +320,7 @@ def meridian_loop():
                 checksum[0] = ~checksum_int
                 s_meridim[MSG_SIZE-1]=checksum[0]
 
-                time.sleep(2/1000) #少し休む場合
+                #time.sleep(2/1000) #少し休む場合
 
                 #データをパックしてUDP送信
                 s_bin_data=struct.pack('90h',*s_meridim)
@@ -328,7 +328,7 @@ def meridian_loop():
 
                 #print("Frame "+str(int(frame_sync_r_resv - frame_sync_r_resv_past)))
 
-                now = time.time()-start
+                now = time.time()-start+0.000000001
 
                 message2="ERROR COUNT ESP-PC:"+str("{:}".format(error_count_esp_to_pc))+\
                     " PC-ESP:"+str("{:}".format(error_count_pc_to_esp))+" ESP-TSY:"+str("{:}".format(error_count_esp_to_tsy))
