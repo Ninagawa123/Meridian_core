@@ -213,9 +213,12 @@ https://github.com/Ninagawa123/Meridian_core/tree/main/Meridian_console
 (ROSの入っていないMacやWinではMeridian_console_without_ros.pyをお試しください。）
 
 ![meridianconsole](https://user-images.githubusercontent.com/8329123/149132025-10c0875a-8eca-47ce-a80f-9b12e32f400c.png)
+
+標準設定の通信速度は100Hzです。Ubuntuの場合は問題なくその速度が出ると思います。
+Teensy側のデータ受け取りに現状5%ほどの取りこぼしが出ますが、UDP通信でエラーの次の瞬間には最新の情報を受け取りますので、見かけ上のサーボの動作は滑らかに再現されます。
   
-  
-#  Unity版デモを実行する（※Mac/Winで動作を確認。Winではファイアーウォールの設定が必要です。）
+#  Unity版デモを実行する
+（※Mac/Winで動作を確認。Winではファイアーウォールの設定が必要です。）
   
 ###  UnityHubに登録して起動する
 フォルダ「Unity_demo」の中のMeridian_unity_demo_mac_20211231.zipを解凍します。  
@@ -246,5 +249,5 @@ Unityを起動した後、Meridianボードを
 このモーションはParamMaster.csの160行目-167行目で設定しているので、適宜書き換えてお試しください。
 
 ###  Unity版の既知の課題(2022.04.18)
-MeridanBoard→Unityの通信はなめらかに動作しますが、Unity→MeridianBoardについては動作にカクつきが出ます。
-ボード側に送信受信ともなめからに動作するポテンシャルがあることについては判明しており、現在Unity側のプログラムを調整中です。
+MeridanBoard→Unityの通信はなめらかに動作しますが、Unity→MeridianBoardについては動作にカクつきが出ることがあります。
+ボード側に送信受信ともなめからに動作するポテンシャルがあることについては判明しており、現在WindowsおよびUnity側のプログラムを調整中です。
