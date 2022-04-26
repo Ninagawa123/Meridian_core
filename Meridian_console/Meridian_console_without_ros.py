@@ -11,6 +11,7 @@
 # 2022.04.18 intel Mac用にdearpygui処理をmainスレッドに変更。M1 Macではdearpyguiが未対応のため動かないはず。
 # 2022.04.25 command欄にパワーオンや送受信の経路スイッチャを追加。（ROS1の受信は機能として未テスト）
 # 2022.04.25 virtualのボタンも機能未実装（ハードウェアのセンサ信号などを仮想化した環境ものと通信できるようにする想定）
+# 2022.04.26 処理遅延のバグを修正
 
 # 取扱説明書
 # ・起動方法
@@ -326,9 +327,7 @@ def meridian_loop():
                 s_bin_data=struct.pack('90h',*s_meridim)
                 sock.sendto(s_bin_data,(UDP_SEND_IP,UDP_SEND_PORT))
 
-                #print("Frame "+str(int(frame_sync_r_resv - frame_sync_r_resv_past)))
-
-                now = time.time()-start+0.000000001
+                now = time.time()-start+0.0001
 
                 message2="ERROR COUNT ESP-PC:"+str("{:}".format(error_count_esp_to_pc))+\
                     " PC-ESP:"+str("{:}".format(error_count_pc_to_esp))+" ESP-TSY:"+str("{:}".format(error_count_esp_to_tsy))
