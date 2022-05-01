@@ -11,6 +11,7 @@
 # 2022.04.18 intel Mac用にdearpygui処理をmainスレッドに変更。M1 Macではdearpyguiが未対応のため動かないはず。
 # 2022.04.25 command欄にパワーオンや送受信の経路スイッチャを追加。（ROS1の受信は機能として未テスト）
 # 2022.04.25 virtualのボタンも機能未実装（ハードウェアのセンサ信号などを仮想化した環境ものと通信できるようにする想定）
+# 2022.05.01 DEMOの動作を全サーボの信号が変更するように微調整。全身で小さな動きのダンスをします。
 
 # 取扱説明書
 # ・起動方法
@@ -53,18 +54,18 @@ import rospy
 from sensor_msgs.msg import JointState
 
 #定数
-TITLE_VERSION="Meridian Console v22.0425" #DPGのウィンドウタイトル兼バージョン表示
+TITLE_VERSION="Meridian Console v22.0501" #DPGのウィンドウタイトル兼バージョン表示
 
-UDP_RESV_IP="192.168.xx.xx" #このPCのIPアドレス
+UDP_RESV_IP="192.168.1.xx" #このPCのIPアドレス
 UDP_RESV_PORT=22222 #受信ポート
 
-UDP_SEND_IP="192.168.xx.xx" #送信先のESP32のIPアドレス
+UDP_SEND_IP="192.168.1.xx" #送信先のESP32のIPアドレス
 UDP_SEND_PORT=22224 #送信ポート
 
 MSG_SIZE = 90 #Meridim配列の長さ(デフォルトは90)
 MSG_BUFF = MSG_SIZE * 2 #Meridim配列のバイト長さ
 
-STEP = 0.02 #1フレームあたりに増加させる制御処理用の数値
+STEP = 0.033 #1フレームあたりに増加させる制御処理用の数値
 
 #マスターコマンド用の定数(Meridim配列0番に格納する値)
 CMD_SET_YAW_CENTER = 1002 #IMUのヨー軸センターリセットコマンド
@@ -96,8 +97,8 @@ error_count_esp_skip = 0 #ESPが受信したデータがクロックカウント
 error_count_pc_skip = 0 #PCが受信したデータがクロックカウントスキップしていたか
 frame_sync_s = 0 #送信するframe_sync_r(0-199)
 frame_sync_r_expect = 0 #毎フレームカウントし、受信カウントと比較(0-199)
-frame_sync_r_resv = 0 #今回受信したframe_sync_r
-start = time.time() # フレームレート計測用のタイマー初期値
+frame_sync_r_resv = 0 #今回受信したframe_sync_r5
+start = 0
 
 #Meridim配列関連
 #r_meridim_disp=list(range(MSG_SIZE)) #Meridim配列の受信値short表示用
@@ -284,7 +285,30 @@ def meridian_loop():
                     x += STEP
                     if x>100:
                         x = 0
-                    s_meridim_motion[51] = int(np.sin(x)*3000) #プラマイ10度の間で頭ヨー軸のみにサインカーブを出力
+                    #プラマイ10度の間で頭ヨー軸のみにサインカーブを出力
+                    s_meridim_motion[51] = int(np.sin(x)*3000)      #頭ヨー
+                    s_meridim_motion[23] = int(np.sin(x)*1000) +2000 #左肩ピッチ
+                    s_meridim_motion[25] = -int(np.sin(x*2)*1000) +1000#左肩ロール
+                    s_meridim_motion[27] = int(np.sin(x)*1000) +1000#左肘ヨー
+                    s_meridim_motion[29] = int(np.sin(x)*3000) -3000#左肘ピッチ
+                    s_meridim_motion[31] = int(np.sin(x)*500) #  #左股ヨー
+                    s_meridim_motion[33] = -int(np.sin(x)*400)  #左股ロール
+                    s_meridim_motion[35] = int(np.sin(x*2)*2000) -300 #左股ピッチ
+                    s_meridim_motion[37] = -int(np.sin(x*2)*4000)     #左膝ピッチ
+                    s_meridim_motion[39] = int(np.sin(x*2)*2000)      #左足首ピッチ
+                    s_meridim_motion[41] = int(np.sin(x)*400)      #左足首ロール
+
+                    s_meridim_motion[21] = -int(np.sin(x)*2000)      #腰ヨー
+                    s_meridim_motion[53] = -int(np.sin(x)*1000) +2000 #右肩ピッチ
+                    s_meridim_motion[55] = -int(np.sin(x*2)*1000) +1000#右肩ロール
+                    s_meridim_motion[57] = -int(np.sin(x)*1000) +1000#右肘ヨー
+                    s_meridim_motion[59] = -int(np.sin(x)*3000) -3000#右肘ピッチ
+                    s_meridim_motion[61] = -int(np.sin(x)*500) #右股ヨー
+                    s_meridim_motion[63] = int(np.sin(x)*400)  #右股ロール
+                    s_meridim_motion[65] = -int(np.sin(x*2)*2000) -300 #右股ピッチ
+                    s_meridim_motion[67] = int(np.sin(x*2)*4000)     #右膝ピッチ
+                    s_meridim_motion[69] = -int(np.sin(x*2)*2000)      #右足首ピッチ
+                    s_meridim_motion[71] = -int(np.sin(x)*400)      #右足首ロール
 
         # データを送信Meridim配列に格納
 
@@ -320,7 +344,7 @@ def meridian_loop():
                 checksum[0] = ~checksum_int
                 s_meridim[MSG_SIZE-1]=checksum[0]
 
-                #time.sleep(2/1000) #少し休む場合
+                time.sleep(2/1000) #少し休む場合
 
                 #データをパックしてUDP送信
                 s_bin_data=struct.pack('90h',*s_meridim)
@@ -595,7 +619,7 @@ def main():
                     rospy.init_node('joint_state_meridim', anonymous=True)
                     flag_ros1=1
                 joint_pub = rospy.Publisher('joint_states', JointState, queue_size=10)
-                rate = rospy.Rate(100) # 100hz
+                rate = rospy.Rate(50) # 100hz
                 js_meridim = JointState()
                 js_meridim.header.stamp = rospy.Time.now()
                 js_meridim.name =\
