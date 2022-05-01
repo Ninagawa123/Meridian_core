@@ -619,7 +619,7 @@ def main():
                     rospy.init_node('joint_state_meridim', anonymous=True)
                     flag_ros1=1
                 joint_pub = rospy.Publisher('joint_states', JointState, queue_size=10)
-                rate = rospy.Rate(50) # 100hz
+                rate = rospy.Rate(100) # 100hz
                 js_meridim = JointState()
                 js_meridim.header.stamp = rospy.Time.now()
                 js_meridim.name =\
