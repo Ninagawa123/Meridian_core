@@ -349,9 +349,7 @@ void Core0_UDP_s(void *args) {//サブCPU(Core0)で実行するプログラム
 // ■ 送信用の関数 ----------------------------------------------------------
 void sendUDP() {
   udp.beginPacket(SEND_IP, SEND_PORT);//UDPパケットの開始
-  for (int i = 0; i < MSG_BUFF; i++) {
-    udp.write(s_udp_meridim.bval[i]);//１バイトずつ送信
-  }
+  udp.write(s_udp_meridim.bval, MSG_BUFF);//一括送信
   udp.endPacket();//UDPパケットの終了
 }
 
