@@ -65,7 +65,7 @@ UDP_SEND_PORT=22224 #送信ポート
 MSG_SIZE = 90 #Meridim配列の長さ(デフォルトは90)
 MSG_BUFF = MSG_SIZE * 2 #Meridim配列のバイト長さ
 
-STEP = 0.033 #1フレームあたりに増加させる制御処理用の数値
+STEP = 90 #1フレームあたりに増加させる制御処理用の数値 サインカーブ１周を何分割するか。小さいほどデモ動作周期が速くなる。
 
 #マスターコマンド用の定数(Meridim配列0番に格納する値)
 CMD_SET_YAW_CENTER = 1002 #IMUのヨー軸センターリセットコマンド
@@ -282,8 +282,8 @@ def meridian_loop():
                 #③サーボ位置をここで計算制御する場合は以下でデータを作成(まずはデモモーションのみで運用テスト)
                 if flag_demo_action: #
                     # xをフレームごとにカウントアップ
-                    x += STEP
-                    if x>100:
+                    x += math.pi/STEP
+                    if x>math.pi*2000: #1000周期でリセット
                         x = 0
                     #プラマイ10度の間で頭ヨー軸のみにサインカーブを出力
                     s_meridim_motion[51] = int(np.sin(x)*3000)      #頭ヨー
