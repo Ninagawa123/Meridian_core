@@ -15,10 +15,10 @@ Meridian_coreはMeridianの基本となる形で、動作可能なデモを公�
   
 # 新しい記事への移行  
 Meridian Board Type.Kについての解説の最新版は下記に移行中です。  
-https://github.com/Ninagawa123/Meridian_TWIN  
+https://github.com/Ninagawa123/Meridian_TWIN
 
 Meridian Board -LITE-についての解説の最新版は下記に移行中です。  
-https://github.com/Ninagawa123/Meridian_LITE　
+https://github.com/Ninagawa123/Meridian_LITE
   
 完全移行まで当リポジトリを残しますが、以降の内容は少し古い記事になります。  
   
