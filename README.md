@@ -228,8 +228,8 @@ Teensy側のデータ受け取りに現状5%ほどの取りこぼしが出ます
 （※Mac/Winで動作を確認。Winではファイアーウォールの設定が必要です。）
   
 ###  UnityHubに登録して起動する
-フォルダ「Unity_demo」の中のMeridian_unity_demo_mac_20211231.zipを解凍します。  
-UnityHubを開き、ProjectsのADDで解凍済みの「Meridian_unity_demo_mac_20211231」フォルダを指定します。  
+フォルダ「Unity_demo」の中のMeridian_unity_demo_20220704.zipを解凍します。  
+UnityHubを開き、ProjectsのADDで解凍済みの「Meridian_unity_demo_20220704」フォルダを指定します。  
 UnityHubに登録されたらプロジェクトを起動します。（Unityのバージョンは2020.3.25f1(LTS)です。） 
   
 ###  UnityのスクリプトのIPアドレスを書き換える
@@ -257,15 +257,14 @@ Unityを起動した後、Meridianボードを
 
 # 既知の課題(2022.05.04)
 
-###  Unity版(2022.04.18)
-MeridanBoard→Unityの通信はなめらかに動作しますが、Unity→MeridianBoardについては動作にカクつきが出ることがあります。
-ボード側に送信受信ともなめからに動作するポテンシャルがあることについては判明しており、現在WindowsおよびUnity側のプログラムを調整中です。
+###  Unity版(2022.09.11)
+以前のバージョンではMeridanBoard→Unityの通動作にカクつきが生じていましたが、現在のバージョンでは解消されています。
 
-###  Meridian Console版(2022.05.04)
-Meridian Consoleで読み取った関節データをROS1に出力し、rosbagでjointstateを記録することは可能のようですが、rosbug playとした場合にMeridian Console経由で再生しようとするとカクツキが生じています。改善すべく、原因を探っています。 
+###  Meridian Console版(2022.09.11)
+Meridian Consoleで読み取った関節データをROS1に出力し、rosbagでjointstateを記録することは可能のようですが、rosbug playとした場合にMeridian Console経由で再生しようとするとカクツキが生じています。これはサーボモーターから返信される生値に揺らぎがあることが原因と考えられます。
 
-###  Meridian Board(2022.05.04)
-PC→Teensyの経路で、ESP32からの情報をTeensyがデータを取りこぼすことがあります約5~10%ほど生じております。これは仕様ですが、さらにロスを低減できないか原因を探っています。
+###  Meridian Board(2022.09.11)
+以前約5~10%ほど発生していた通信中のデータの取りこぼしはほぼ解消し、現在は0.1%程度となっています。
 
 ###  Meridian Board Type.K のフリーピン結線時の注意
 Meridian Board Type.Kには未接続のピン穴を複数設けてあり、背面からマイコンの入出力と半田付けするすることでIOポートとして利用可能です。その際の注意点を以下にメモします。
