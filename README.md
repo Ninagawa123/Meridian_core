@@ -210,20 +210,11 @@ Error: Cannot assign requested address となる
 それでも動かない場合は電源供給付きのUSBハブを利用するか、Meridianボードに電源を接続することでアンペアを確保してください。  
   
 #  Meridian consoleを実行する  
-Meridianで受け取るデータを表示できるコンソールを用意しました。  
-$ pip3 install dearpygui など、必要なライブラリをインストールしてください。  
-ROS信号あり、ROS信号なしが選べるので、pythonが使える環境であれば手軽にMeridianの通信をテストすることができます。
- (~~2022.04.16 すみません、Macで動きませんでした。M1はdearpyguiに対応しておりません。またIntelMacもスレッドでのGUI描写に対応しておらず、ちょっとプログラムをちょっと修正する必要があります。~~ 2022.04.18 IntelMacは動作するように対応できました。M1はまだです。)
- 
-https://github.com/Ninagawa123/Meridian_core/tree/main/Meridian_console
-
-(ROSの入っていないMacやWinではMeridian_console_without_ros.pyをお試しください。）
-
-![meridianconsole](https://user-images.githubusercontent.com/8329123/149132025-10c0875a-8eca-47ce-a80f-9b12e32f400c.png)
-
-標準設定の通信速度は100Hzです。Ubuntuの場合は問題なくその速度が出ると思います。
-Teensy側のデータ受け取りに現状5%ほどの取りこぼしが出ますが、UDP通信でエラーの次の瞬間には最新の情報を受け取りますので、見かけ上のサーボの動作は滑らかに再現されます。
+Meridianで受け取るデータを表示できるコンソールを用意しました.python3が使える環境で実行可能です.  
+https://github.com/Ninagawa123/Meridian_console  
   
+![meridian_console](https://user-images.githubusercontent.com/8329123/190897481-e073a30d-e475-40f3-bdf4-cfa3e188bf8f.jpg)
+    
 #  Unity版デモを実行する
 （※Mac/Winで動作を確認。Winではファイアーウォールの設定が必要です。）
   
